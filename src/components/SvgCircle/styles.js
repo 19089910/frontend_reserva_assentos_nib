@@ -5,19 +5,24 @@ export const Conteiner = styled.div`
   height: 50px;
   margin: 5px;
   display: flex;
+  flex: 1 1 0%;
   align-items: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
 
+  height: 23px;
+  margin: 0.5px 0px;
   svg {
     width: 100%;
     height: 100%;
   }
 
   .i-background {
-    fill: #ccc; /* Cor de fundo do assento */
+    fill: rgb(152, 170, 236); /* Cor de fundo do assento */
   }
 
   .i-border {
-    fill: #000; /* Cor da borda do assento */
+    fill: rgb(152, 170, 236); /* Cor da borda do assento */
   }
 `

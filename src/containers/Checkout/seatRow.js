@@ -1,21 +1,24 @@
-// src/containers/Checkout/seatRow.js
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import { SvgCircle } from '../../components/SvgCircle'
+import { RowContainer, SeatContainer, RowLabel } from './styles'
 
 function SeatRow({ seats }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <RowContainer>
+      <RowLabel>{seats[0].charAt(0)}</RowLabel>
       {seats.map((seat, index) => (
-        <SvgCircle key={index} />
+        <SeatContainer key={index}>
+          <SvgCircle /> {/* Use o componente SvgCircle aqui */}
+        </SeatContainer>
       ))}
-    </div>
+    </RowContainer>
   )
 }
 
 SeatRow.propTypes = {
-  seats: PropTypes.array.isRequired
+  seats: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default SeatRow
