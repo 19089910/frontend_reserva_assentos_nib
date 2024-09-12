@@ -3,66 +3,61 @@ import styled from 'styled-components'
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
-  max-width: 1440px;
-  margin: 0px auto 16px;
-  box-sizing: content-box;
-  padding: 0px 10px;
-  -webkit-box-pack: center;
+  margin: 0 auto;
+  padding: 10px;
   background: #161b22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
-export const Header = styled.div`
-  background: rgb(52, 60, 70);
 
-  color: rgb(255, 255, 255);
+export const Header = styled.div`
+  background: #343c46;
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 1.5rem;
+  width: 100%;
 `
 
 export const MatrizContainer = styled.div`
-  cursor: pointer;
-  font-weight: 600;
-  animation-duration: 100ms;
-  transform: scale(0.85);
-  position: relative;
-  background: rgb(33, 38, 45);
-  box-sizing: border-box;
-  display: block;
-  unicode-bidi: isolate;
-
-  width: 100%;
-  padding: 32px 56px 8px;
-  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #21262d;
+  padding: 20px;
+  //width: 100%;
 `
+
 export const StageContainer = styled.div`
   text-align: center;
-  background-color: #ccc; /* Cor de fundo para representar a tela */
+  background-color: #ccc;
   padding: 10px;
   font-weight: bold;
-  margin-bottom: 20px; /* Espaço abaixo do palco */
+  font-size: 1.2rem;
+  margin-top: 20px;
+  width: 100%;
 `
-export const RowContainer = styled.div`
+export const ReactTransformComponent = styled.div`
   display: flex;
-  align-items: center;
-  margin: 5px 0;
+  flex-direction: row;
+  justify-content: space-between;
+  height: calc(min(28px, 50vh));
+  transform: translate(0px, 0px) scale(1);
+`
+export const Circle = styled.div`
+  height: calc(min(28px, 50vh));
 `
 
-// Container para cada assento
-export const SeatContainer = styled.div`
-  width: 24px;
-  height: 24px;
-  margin: 0 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`
-
-// Label para identificar a linha de assentos (ex: A, B, C)
 export const RowLabel = styled.span`
-  width: 24px;
-  text-align: center;
-  font-weight: bold;
-  margin-right: 8px;
+  flex: 1 1 0%;
+  -webkit-box-align: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 0.75em;
 `

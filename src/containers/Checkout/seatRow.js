@@ -1,24 +1,37 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { SvgCircle } from '../../components/SvgCircle'
-import { RowContainer, SeatContainer, RowLabel } from './styles'
+import { SvgCircle } from './../../components/SvgCircle'
+import { ReactTransformComponent, RowLabel, Circle } from './styles'
 
 function SeatRow({ seats }) {
   return (
-    <RowContainer>
-      <RowLabel>{seats[0].charAt(0)}</RowLabel>
+    <ReactTransformComponent className=" transform-component-module_content__uCDPE ">
       {seats.map((seat, index) => (
-        <SeatContainer key={index}>
-          <SvgCircle /> {/* Use o componente SvgCircle aqui */}
-        </SeatContainer>
+        <React.Fragment type="Regular" key={index}>
+          {index === 0 && (
+            <RowLabel data-testid="seat-map-row" className="sc-dChVcU oFTsR">
+              {seat.rowLabel}
+            </RowLabel>
+          )}
+
+          <Circle data-testid="svg-element">
+            <SvgCircle />
+          </Circle>
+        </React.Fragment>
       ))}
-    </RowContainer>
+    </ReactTransformComponent>
   )
 }
 
+// Definindo os propTypes
 SeatRow.propTypes = {
-  seats: PropTypes.arrayOf(PropTypes.string).isRequired
+  seats: PropTypes.arrayOf(
+    PropTypes.shape({
+      seatNumber: PropTypes.string.isRequired,
+      isAvailable: PropTypes.bool.isRequired
+    })
+  ).isRequired
 }
 
 export default SeatRow
