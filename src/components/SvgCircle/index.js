@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import { Conteiner } from './styles'
 
-export function SvgCircle() {
+export function SvgCircle({ disabled }) {
   return (
-    <Conteiner>
+    <Conteiner disabled={disabled}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 28 24"
@@ -22,3 +23,5 @@ export function SvgCircle() {
     </Conteiner>
   )
 }
+
+SvgCircle.propTypes = { disabled: PropTypes.bool }

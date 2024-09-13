@@ -1,4 +1,3 @@
-import { Padding } from '@mui/icons-material'
 import React from 'react'
 
 import { generateRows } from '../../util/GenerateRows'
@@ -6,7 +5,7 @@ import SeatRow from './seatRow'
 import { Container, Header, MatrizContainer } from './styles'
 
 function Checkout() {
-  const rows = generateRows(5, 30)
+  const rows = generateRows(30, 17)
 
   /* const rows = [
     [
@@ -36,6 +35,7 @@ function Checkout() {
             ))}
           </div>
         </MatrizContainer>
+        <div>tela</div>
       </Container>
     </>
   )

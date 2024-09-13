@@ -16,8 +16,17 @@ function SeatRow({ seats }) {
           )}
 
           <Circle data-testid="svg-element">
-            <SvgCircle />
+            <SvgCircle disabled={seat.disabled} />
           </Circle>
+        </React.Fragment>
+      ))}
+      {seats.map((seat, index) => (
+        <React.Fragment key={index}>
+          {index === 0 && (
+            <RowLabel data-testid="seat-map-row" className="sc-dChVcU oFTsR">
+              {seat.rowLabel}
+            </RowLabel>
+          )}
         </React.Fragment>
       ))}
     </ReactTransformComponent>

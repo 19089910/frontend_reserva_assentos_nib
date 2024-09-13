@@ -7,15 +7,46 @@ export const generateRows = (numRows, numSeatsPerRow) => {
     const seats = []
 
     for (let j = 1; j <= numSeatsPerRow; j++) {
+      let disabled
+      const falseSide = 1
+      if (j <= falseSide) {
+        // Primeiros dois assentos: 'false'
+        disabled = false
+      } else if (j > numSeatsPerRow - falseSide) {
+        // Últimos dois assentos: 'false'
+        disabled = false
+      } else {
+        const middleStart = Math.floor(numSeatsPerRow / 2)
+
+        if (numSeatsPerRow % 2 === 0) {
+          // Se o número de assentos é par, desabilita dois assentos no meio
+          if (j === middleStart || j === middleStart + 1) {
+            disabled = false
+          } else {
+            disabled = true
+          }
+        } else {
+          // Se o número de assentos é ímpar, desabilita três assentos no meio
+          if (
+            j === middleStart ||
+            j === middleStart + 1 ||
+            j === middleStart + 2
+          ) {
+            disabled = false
+          } else {
+            disabled = true
+          }
+        }
+      }
       seats.push({
         rowLabel,
         seatNumber: `${rowLabel}${j}`,
-        disabled: Math.random() < 0.3 // Exemplo de lógica para assentos desativados (30% de chance)
+        disabled // Exemplo de lógica para assentos desativados (30% de chance)
       })
     }
 
     rows.push(seats)
-    console.log(rows)
+    console.log(rows.seatNumber)
   }
 
   return rows

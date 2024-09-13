@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 
 export const Conteiner = styled.div`
+  svg {
+    width: 100%;
+    height: 100%;
+  }
   .i-background {
-    fill: rgb(152, 170, 236); /* Cor de fundo do assento */
+    fill: ${(porps) => (porps.disabled ? '#98aaec' : '#21262d')};
   }
 
   .i-border {
-    fill: rgb(152, 170, 236); /* Cor da borda do assento */
+    fill: ${(porps) =>
+      porps.disabled ? '#98aaec' : '#21262d'}; /* Cor da borda do assento */
   }
 `
