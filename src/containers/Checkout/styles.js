@@ -60,3 +60,16 @@ export const RowLabel = styled.span`
 
   font-size: 0.875rem; /* Tamanho da fonte */
 `
+
+export const Stage = styled.div`
+  color: rgb(33, 38, 50);
+  background: rgb(173, 182, 194);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.9px;
+  text-align: center;
+  text-transform: uppercase;
+  height: 18px;
+  border-bottom: 2px solid rgb(240, 240, 240);
+  margin: 16px 0px 16px;
+`

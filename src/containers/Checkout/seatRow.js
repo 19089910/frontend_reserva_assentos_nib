@@ -4,7 +4,7 @@ import React from 'react'
 import { SvgCircle } from './../../components/SvgCircle'
 import { ReactTransformComponent, RowLabel, Circle } from './styles'
 
-function SeatRow({ seats }) {
+function SeatRow({ seats, onSeatClick }) {
   return (
     <ReactTransformComponent className=" transform-component-module_content__uCDPE ">
       {seats.map((seat, index) => (
@@ -16,7 +16,10 @@ function SeatRow({ seats }) {
           )}
 
           <Circle data-testid="svg-element">
-            <SvgCircle disabled={seat.disabled} />
+            <SvgCircle
+              disabled={seat.disabled}
+              onClick={() => onSeatClick(seat.seatNumber)}
+            />
           </Circle>
         </React.Fragment>
       ))}
@@ -40,7 +43,8 @@ SeatRow.propTypes = {
       seatNumber: PropTypes.string.isRequired,
       isAvailable: PropTypes.bool.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  onSeatClick: PropTypes.func.isRequired
 }
 
 export default SeatRow

@@ -4,9 +4,11 @@ export const Conteiner = styled.div`
   svg {
     width: 100%;
     height: 100%;
+
+    cursor: ${(prop) => (prop.disabled ? 'pointer' : '')};
   }
   .i-background {
-    fill: ${(porps) => (porps.disabled ? '#98aaec' : '#21262d')};
+    fill: ${(prop) => (prop.disabled ? '#98aaec' : '#21262d')};
   }
 
   .i-border {

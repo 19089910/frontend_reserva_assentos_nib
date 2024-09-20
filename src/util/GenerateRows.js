@@ -9,44 +9,47 @@ export const generateRows = (numRows, numSeatsPerRow) => {
     for (let j = 1; j <= numSeatsPerRow; j++) {
       let disabled
       const falseSide = 1
-      if (j <= falseSide) {
-        // Primeiros dois assentos: 'false'
-        disabled = false
-      } else if (j > numSeatsPerRow - falseSide) {
-        // Últimos dois assentos: 'false'
+      if (j <= falseSide || j > numSeatsPerRow - falseSide) {
+        // Primeiros e últimos assentos: 'false'
         disabled = false
       } else {
         const middleStart = Math.floor(numSeatsPerRow / 2)
 
         if (numSeatsPerRow % 2 === 0) {
           // Se o número de assentos é par, desabilita dois assentos no meio
-          if (j === middleStart || j === middleStart + 1) {
-            disabled = false
-          } else {
-            disabled = true
-          }
+          // Par: desabilita dois assentos no meio
+          disabled = !(j === middleStart || j === middleStart + 1)
         } else {
           // Se o número de assentos é ímpar, desabilita três assentos no meio
-          if (
+          // Ímpar: desabilita três assentos no meio
+          disabled = !(
             j === middleStart ||
             j === middleStart + 1 ||
             j === middleStart + 2
-          ) {
-            disabled = false
-          } else {
-            disabled = true
-          }
+          )
         }
       }
       seats.push({
         rowLabel,
-        seatNumber: `${rowLabel}${j}`,
-        disabled // Exemplo de lógica para assentos desativados (30% de chance)
+        seatNumber: null,
+        disabled
       })
     }
 
     rows.push(seats)
-    console.log(rows.seatNumber)
+
+    // Segundo loop: atribuir seatNumber para assentos 'true'
+    for (let i = 0; i < rows.length; i++) {
+      let seatCounter = 1 // Contador de assentos ativos começa em 1 para cada linha
+
+      for (let j = 0; j < rows[i].length; j++) {
+        if (rows[i][j].disabled) {
+          // Se o assento estiver ativo (disabled: true), atribui seatNumber
+          rows[i][j].seatNumber = `${rows[i][j].rowLabel}${seatCounter}`
+          seatCounter++ // Incrementa o contador para o próximo assento
+        }
+      }
+    }
   }
 
   return rows

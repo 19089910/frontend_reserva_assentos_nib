@@ -2,11 +2,9 @@ import React from 'react'
 
 import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
-import { Container, Header, MatrizContainer } from './styles'
+import { Container, Header, MatrizContainer, Stage } from './styles'
 
 function Checkout() {
-  const rows = generateRows(30, 17)
-
   /* const rows = [
     [
       // Linha 1
@@ -21,6 +19,12 @@ function Checkout() {
       { seatNumber: 'B3', disabled: true }
     ]
   ] */
+  const rows = generateRows(30, 17)
+
+  const handleSeatClick = (seatNumber) => {
+    console.log(`Seat selected: ${seatNumber}`)
+  }
+
   return (
     <>
       {console.log(rows)}
@@ -30,12 +34,16 @@ function Checkout() {
         </Header>
         <MatrizContainer>
           <div className="react-transform-wrapper transform-component-module_wrapper__7HFJe ">
+            <Stage>tela</Stage>
             {rows.map((seats, index) => (
-              <SeatRow key={index} seats={seats} />
+              <SeatRow
+                key={index}
+                seats={seats}
+                onSeatClick={handleSeatClick}
+              />
             ))}
           </div>
         </MatrizContainer>
-        <div>tela</div>
       </Container>
     </>
   )

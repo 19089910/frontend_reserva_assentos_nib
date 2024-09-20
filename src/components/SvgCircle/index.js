@@ -3,9 +3,9 @@ import React from 'react'
 
 import { Conteiner } from './styles'
 
-export function SvgCircle({ disabled }) {
+export function SvgCircle({ disabled, onClick }) {
   return (
-    <Conteiner disabled={disabled}>
+    <Conteiner disabled={disabled} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 28 24"
@@ -24,4 +24,7 @@ export function SvgCircle({ disabled }) {
   )
 }
 
-SvgCircle.propTypes = { disabled: PropTypes.bool }
+SvgCircle.propTypes = {
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func
+}
