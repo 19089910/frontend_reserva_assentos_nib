@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
 import { Container, Header, MatrizContainer } from './styles'
 
 function Checkout() {
+  const [selectedSeat, setSelectedSeat] = useState([])
+
   const rows = generateRows(5, 35)
   const handleSeatClick = (seatNumber) => {
-    console.log(`Seat selected: ${seatNumber}`)
+    setSelectedSeat((prevSelectedSeat) => {
+      // Adiciona ou remove o assento do array de selecionados
+      if (prevSelectedSeat.includes(seatNumber)) {
+        return prevSelectedSeat.filter((seat) => seat !== seatNumber)
+      } else {
+        return [...prevSelectedSeat, seatNumber]
+      }
+    })
   }
 
   return (
     <>
-      {console.log(rows)}
+      {console.log(selectedSeat)}
       <Container>
         <Header>
           <h1>Selecione seu Assento</h1>
@@ -28,6 +37,7 @@ function Checkout() {
                   key={index}
                   seats={seats}
                   onSeatClick={handleSeatClick}
+                  selectedSeat={selectedSeat}
                 />
               ))}
             </div>
