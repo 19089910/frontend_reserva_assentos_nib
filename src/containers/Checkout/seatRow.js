@@ -6,7 +6,7 @@ import { ReactTransformComponent, RowLabel, Circle } from './styles'
 
 function SeatRow({ seats, onSeatClick }) {
   return (
-    <ReactTransformComponent className=" transform-component-module_content__uCDPE ">
+    <ReactTransformComponent>
       {seats.map((seat, index) => (
         <React.Fragment type="Regular" key={index}>
           {index === 0 && (

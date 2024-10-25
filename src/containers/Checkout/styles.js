@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
-  //height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   padding: 10px;
   background: #161b22;
@@ -22,6 +22,49 @@ export const Header = styled.div`
 `
 
 export const MatrizContainer = styled.div`
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 12px 8px;
+  }
+
+  width: 100%;
+  padding: 32px 56px 8px;
+  max-width: 1440px;
+  .transform-component-module_wrapper__7HFJe {
+    position: relative;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+  }
+  .transform-component-module_content__uCDPE {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: rgb(33, 38, 45);
+
+    display: flex;
+    flex-wrap: wrap;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+    transform-origin: 0% 0%;
+  }
+`
+export const MatrizContainerOld = styled.div`
   display: flex; /* Ativa o flexbox */
   //flex-wrap: wrap; /* Permite que os itens quebrem linha */
   justify-content: center; /* Centraliza os itens horizontalmente */
@@ -34,8 +77,12 @@ export const MatrizContainer = styled.div`
   flex: 1; /* Faz com que o container cresça para preencher o espaço disponível */
   box-sizing: border-box; /* Inclui o padding e a borda no cálculo da largura e altura */
 `
-
 export const ReactTransformComponent = styled.div`
+  display: flex;
+  height: 27px;
+  margin: 0.5px 0px;
+`
+export const ReactTransformComponentOld = styled.div`
   display: flex; /* Ativa o flexbox */
   flex-wrap: wrap; /* Permite que os itens quebrem linha */
   justify-content: center; /* Centraliza os itens horizontalmente */
@@ -44,6 +91,19 @@ export const ReactTransformComponent = styled.div`
   // height: 100%; /* Ocupa toda a altura disponível */
 `
 export const Circle = styled.div`
+  flex: 1 1 0%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  animation-duration: 100ms;
+  padding: 0px;
+  transform: scale(0.85);
+`
+export const CircleOld = styled.div`
   width: 30px; /* Tamanho fixo para o círculo */
   height: 30px; /* Tamanho fixo para o círculo */
   margin: 0.7px 0px; /* Espaçamento entre os círculos */
@@ -51,8 +111,21 @@ export const Circle = styled.div`
   align-items: center;
   justify-content: center;
 `
-
 export const RowLabel = styled.span`
+  @media (max-width: 992px) {
+    font-size: 0.5em;
+  }
+
+  flex: 1 1 0%;
+  -webkit-box-align: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 0.75em;
+`
+export const RowLabelOld = styled.span`
   display: inline-block;
   width: 50px; /* Largura fixa para o rótulo */
   text-align: center; /* Centraliza o texto */
