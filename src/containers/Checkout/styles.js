@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
@@ -90,18 +90,57 @@ export const ReactTransformComponentOld = styled.div`
 
   // height: 100%; /* Ocupa toda a altura disponível */
 `
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.8, 1.8, 1.8);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+`
 export const Circle = styled.div`
-  flex: 1 1 0%;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: 600;
-  animation-duration: 100ms;
-  padding: 0px;
-  transform: scale(0.85);
+  .dnWEgS {
+    flex: 1 1 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 600;
+    animation-duration: 100ms;
+    padding: 0px;
+    transform: scale(0.85);
+    animation-name: ${pulseAnimation};
+  }
+
+  .dnWEgS svg {
+    transform: scale(1.1);
+  }
+
+  .kjQfvk {
+    flex: 1 1 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 600;
+    animation-duration: 100ms;
+    padding: 0px;
+    transform: scale(0.85);
+  }
+
+  .eVTepf svg {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    fill: rgb(255, 255, 255) !important;
+  }
+
+  .efecth {
+    position: relative;
+  }
 `
 export const CircleOld = styled.div`
   width: 30px; /* Tamanho fixo para o círculo */
@@ -145,4 +184,21 @@ export const Stage = styled.div`
   height: 18px;
   border-bottom: 2px solid rgb(240, 240, 240);
   margin: 16px 0px 16px;
+`
+export const SpanEx = styled.span`
+  position: absolute;
+
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 0px;
+  height: 100%;
+  width: 100%;
+`
+export const Text = styled.text`
+  font-size: 7em;
+  text-anchor: middle;
+  text-transform: uppercase;
 `
