@@ -7,18 +7,8 @@ export const Conteiner = styled.svg`
 `
 export const Circle = styled.circle`
   transition: 200ms;
-  fill: ${(props) =>
-    props.disabled
-      ? '#21262d'
-      : props.isSelected
-        ? 'rgb(255, 214, 51)'
-        : '#98aaec'};
+  fill: ${(props) => (props.isSelected ? 'rgb(255, 214, 51)' : '#98aaec')};
 `
 export const Path = styled.path`
-  fill: ${(props) =>
-    props.disabled
-      ? '#21262d'
-      : props.isSelected
-        ? 'rgb(255, 214, 51)'
-        : '#98aaec'};
+  fill: ${(props) => (props.isSelected ? 'rgb(255, 214, 51)' : '#98aaec')};
 `
