@@ -17,7 +17,7 @@ function SeatRow({ seats, onSeatClick }) {
   return (
     <ReactTransformComponent>
       {seats.map((seat, index) => (
-        <React.Fragment type="Regular" key={index}>
+        <React.Fragment key={index}>
           {index === 0 && (
             <RowLabel data-testid="seat-map-row" className="sc-dChVcU oFTsR">
               {seat.rowLabel}
@@ -35,13 +35,11 @@ function SeatRow({ seats, onSeatClick }) {
           >
             {seat.disabled && (
               <Span height="100" width="100" className="icon">
-                <div data-testid="svg-element">
-                  <div>
-                    <SvgCircle
-                      disabled={seat.disabled}
-                      isSelected={selectedSeat === seat.seatNumber}
-                    />
-                  </div>
+                <div data-testid="svg-element" style={{ fontSize: '0px' }}>
+                  <SvgCircle
+                    disabled={seat.disabled}
+                    isSelected={selectedSeat === seat.seatNumber}
+                  />
                 </div>
               </Span>
             )}
@@ -57,13 +55,8 @@ function SeatRow({ seats, onSeatClick }) {
               }
             >
               {selectedSeat === seat.seatNumber && (
-                <Text
-                  x="50%"
-                  y="50%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                >
-                  {seat.seatLabel || ''}
+                <Text x="50%" y="50%">
+                  {seat.seatNumber}
                 </Text>
               )}
             </svg>

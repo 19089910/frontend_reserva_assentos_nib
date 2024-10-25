@@ -63,9 +63,96 @@ export const MatrizContainer = styled.div`
   }
 `
 export const ReactTransformComponent = styled.div`
+  @media (min-width: 992px) {
+    height: 30px;
+  }
   display: flex;
-  height: 27px;
+  height: 34px;
   margin: 0.5px 0px;
+  @media (max-width: 992px) {
+    height: 29px;
+  }
+  @media (max-width: 980px) {
+    height: 28px;
+  }
+  @media (max-width: 960px) {
+    height: 27px;
+  }
+  @media (max-width: 940px) {
+    height: 26px;
+  }
+  @media (max-width: 920px) {
+    height: 25px;
+  }
+  @media (max-width: 900px) {
+    height: 24px;
+  }
+  @media (max-width: 880px) {
+    height: 23px;
+  }
+  @media (max-width: 860px) {
+    height: 22px;
+  }
+  @media (max-width: 840px) {
+    height: 21px;
+  }
+  @media (max-width: 820px) {
+    height: 20px;
+  }
+  @media (max-width: 800px) {
+    height: 19px;
+  }
+  @media (max-width: 780px) {
+    height: 18px;
+  }
+  @media (max-width: 760px) {
+    height: 17px;
+  }
+  @media (max-width: 740px) {
+    height: 17px;
+  }
+  @media (max-width: 720px) {
+    height: 16px;
+  }
+  @media (max-width: 700px) {
+    height: 16px;
+  }
+  @media (max-width: 680px) {
+    height: 15px;
+  }
+  @media (max-width: 660px) {
+    height: 15px;
+  }
+  @media (max-width: 640px) {
+    height: 14px;
+  }
+  @media (max-width: 620px) {
+    height: 14px;
+  }
+  @media (max-width: 600px) {
+    height: 13px;
+  }
+  @media (max-width: 580px) {
+    height: 13px;
+  }
+  @media (max-width: 560px) {
+    height: 12px;
+  }
+  @media (max-width: 540px) {
+    height: 12px;
+  }
+  @media (max-width: 520px) {
+    height: 11px;
+  }
+  @media (max-width: 500px) {
+    height: 11px;
+  }
+  @media (max-width: 480px) {
+    height: 10px;
+  }
+  @media (max-width: 460px) {
+    height: 10px;
+  }
 `
 const pulseAnimation = keyframes`
   0% {
@@ -158,5 +245,8 @@ export const Stage = styled.div`
 `
 export const Text = styled.text`
   font-size: 7em;
+  text-anchor: middle;
   text-transform: uppercase;
+  dominant-baseline: middle;
+  fill: rgb(0, 0, 0);
 `
