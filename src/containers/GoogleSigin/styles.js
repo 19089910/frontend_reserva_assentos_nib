@@ -1,37 +1,68 @@
 import styled from 'styled-components'
 
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Page = styled.div`
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-sizing: border-box;
 `
 
-export const HiddenInput = styled.input`
-  display: none;
+export const Signin = styled.div`
+  text-align: center;
 `
 
-export const Button = styled.button`
+export const Card = styled.div`
+  background-color: var(--color-background-card);
+  border-radius: 2rem;
+  padding: 1.25rem 2rem;
+
+  @media screen and (min-width: 450px) {
+    margin: 2rem 0;
+    width: 368px;
+  }
+
+  @media screen and (max-width: 450px) {
+    margin: 1rem 0;
+    width: 343px;
+  }
+`
+
+export const ProviderButton = styled.button`
   display: flex;
   align-items: center;
-  background-color: var(--provider-bg, #fff);
-  color: var(--provider-color, #000);
+  justify-content: center;
+  background-color: #fff;
+  color: #000;
+  border-radius: var(--border-radius);
   border: none;
-  padding: 8px 16px;
+  min-height: 62px;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color 0.1s ease-in-out;
   cursor: pointer;
-  transition: background-color 0.3s;
+  width: 100%;
 
   &:hover {
-    background-color: var(--provider-bg-hover, rgba(255, 255, 255, 0.8));
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  span {
+    flex-grow: 1;
   }
 `
 
 export const ProviderLogo = styled.img`
-  height: 24px;
-  width: 24px;
-  margin-right: 8px;
+  display: block;
+  width: 25px;
 `
 
-export const ButtonText = styled.span`
-  font-size: 14px;
-  color: var(--provider-color, #000);
+export const ProviderLogoDark = styled.img`
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: block;
+  }
 `
