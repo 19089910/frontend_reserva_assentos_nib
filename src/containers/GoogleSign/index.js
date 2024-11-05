@@ -1,15 +1,8 @@
 import React from 'react'
 
-import {
-  Page,
-  Signin,
-  Card,
-  ProviderButton,
-  ProviderLogo,
-  ProviderLogoDark
-} from './styles'
+import { Page, Signin, Card, ProviderButton, ProviderLogo } from './styles'
 
-function SignIn() {
+function GoogleSign() {
   return (
     <Page>
       <Signin>
@@ -36,13 +29,6 @@ function SignIn() {
                 src="https://authjs.dev/img/providers/google.svg"
                 alt="Google Logo"
               />
-              <ProviderLogoDark
-                loading="lazy"
-                height="24"
-                width="24"
-                src="https://authjs.dev/img/providers/google.svg"
-                alt="Google Logo Dark"
-              />
               <span>Sign in with Google</span>
             </ProviderButton>
           </form>
@@ -52,4 +38,4 @@ function SignIn() {
   )
 }
 
-export default SignIn
+export default GoogleSign

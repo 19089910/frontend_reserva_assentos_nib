@@ -14,7 +14,7 @@ export const Signin = styled.div`
 `
 
 export const Card = styled.div`
-  background-color: var(--color-background-card);
+  background-color: #0d1117;
   border-radius: 2rem;
   padding: 1.25rem 2rem;
 
@@ -35,7 +35,7 @@ export const ProviderButton = styled.button`
   justify-content: center;
   background-color: #fff;
   color: #000;
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   border: none;
   min-height: 62px;
   padding: 0.75rem 1rem;
@@ -57,12 +57,4 @@ export const ProviderButton = styled.button`
 export const ProviderLogo = styled.img`
   display: block;
   width: 25px;
-`
-
-export const ProviderLogoDark = styled.img`
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: block;
-  }
 `
