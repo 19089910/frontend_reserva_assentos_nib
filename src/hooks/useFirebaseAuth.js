@@ -1,22 +1,30 @@
-import firebase from 'firebase/app'
+import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useContext, createContext } from 'react'
-import 'firebase/auth'
 
-// Inicialize o Firebase (se ainda não tiver feito isso)
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: 'AIzaSyBPDcwFiVnri580RRDablcc5PMJX5ScHXc',
-    authDomain: 'firstprojet-115b9.firebaseapp.com',
-    projectId: 'firstprojet-115b9',
-    storageBucket: 'firstprojet-115b9.firebasestorage.app',
-    messagingSenderId: '811112698943',
-    appId: '1:811112698943:web:22c709904e3c9ba543148a',
-    measurementId: 'G-V1704B7747'
-  })
-}
+// Inicialize o Firebase
+const app = initializeApp({
+  apiKey: 'AIzaSyBPDcwFiVnri580RRDablcc5PMJX5ScHXc',
+  authDomain: 'firstprojet-115b9.firebaseapp.com',
+  projectId: 'firstprojet-115b9',
+  storageBucket: 'firstprojet-115b9.appspot.com',
+  messagingSenderId: '811112698943',
+  appId: '1:811112698943:web:22c709904e3c9ba543148a',
+  measurementId: 'G-V1704B7747'
+})
 
+const auth = getAuth(app)
 const UserContext = createContext({})
+
 // Hook para autenticação Firebase
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -24,7 +32,7 @@ export const UserProvider = ({ children }) => {
 
   // Configura um listener para o estado de autenticação
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
       setLoading(false)
     })
@@ -34,7 +42,7 @@ export const UserProvider = ({ children }) => {
   // Função de login
   const login = async (email, password) => {
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password)
+      await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
       console.error('Erro no login:', error)
       alert(error.message)
@@ -44,7 +52,7 @@ export const UserProvider = ({ children }) => {
   // Função de logout
   const logout = async () => {
     try {
-      await firebase.auth().signOut()
+      await signOut(auth)
     } catch (error) {
       console.error('Erro no logout:', error)
     }
@@ -53,7 +61,7 @@ export const UserProvider = ({ children }) => {
   // Função de registro
   const register = async (email, password) => {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
     } catch (error) {
       console.error('Erro no registro:', error)
       alert(error.message)
@@ -66,11 +74,12 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   )
 }
-// context provide:
+
+// Hook de contexto
 export const useUser = () => {
   const context = useContext(UserContext)
   if (!context) {
-    throw new Error('useUser most be used with UserContext')
+    throw new Error('useUser deve ser usado dentro do UserProvider')
   }
   return context
 }
