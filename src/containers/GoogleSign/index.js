@@ -1,8 +1,15 @@
 import React from 'react'
 
+import { useUser } from '../../hooks/useFirebaseAuth'
 import { Page, Signin, Card, ProviderButton, ProviderLogo } from './styles'
 
-function GoogleSign() {
+export function GoogleSign() {
+  const { login } = useUser()
+
+  const handleSubmit = (e) => {
+    e.preventDefault() // Impede o envio do formulário
+    login() // Chama a função de login com Google
+  }
   return (
     <Page>
       <Signin>
@@ -10,6 +17,7 @@ function GoogleSign() {
           <form
             action="https://devtechbarber.vercel.app/api/auth/signin/google"
             method="POST"
+            onSubmit={handleSubmit}
           >
             <input
               type="hidden"
@@ -37,5 +45,3 @@ function GoogleSign() {
     </Page>
   )
 }
-
-export default GoogleSign

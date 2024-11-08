@@ -4,7 +4,7 @@ import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
 import { Container, Header, MatrizContainer } from './styles'
 
-function Checkout() {
+export function Checkout() {
   const [selectedSeat, setSelectedSeat] = useState([])
 
   const rows = generateRows(5, 35)
@@ -48,5 +48,3 @@ function Checkout() {
     </>
   )
 }
-
-export default Checkout

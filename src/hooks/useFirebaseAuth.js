@@ -1,9 +1,9 @@
-import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js'
+// import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js'
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithEmailAndPassword,
+  signInWithPopup,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut
@@ -24,6 +24,7 @@ const app = initializeApp({
 
 const auth = getAuth(app)
 const UserContext = createContext({})
+const googleProvider = new GoogleAuthProvider()
 
 // Hook para autenticação Firebase
 export const UserProvider = ({ children }) => {
@@ -40,15 +41,14 @@ export const UserProvider = ({ children }) => {
   }, [])
 
   // Função de login
-  const login = async (email, password) => {
+  const login = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithPopup(auth, googleProvider)
     } catch (error) {
-      console.error('Erro no login:', error)
+      console.error('Erro no login com Google:', error)
       alert(error.message)
     }
   }
-
   // Função de logout
   const logout = async () => {
     try {
