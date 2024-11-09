@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/assentos" element={<Checkout />} />
+        <Route path="/" element={<Checkout />} />
         <Route path="/signin" element={<GoogleSign />} />
       </Routes>
     </Router>

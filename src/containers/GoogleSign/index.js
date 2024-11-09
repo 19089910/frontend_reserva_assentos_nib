@@ -4,7 +4,9 @@ import { useUser } from '../../hooks/useFirebaseAuth'
 import { Page, Signin, Card, ProviderButton, ProviderLogo } from './styles'
 
 export function GoogleSign() {
-  const { login } = useUser()
+  const { user, loading, login, logout } = useUser()
+  console.log(user, 'user ')
+  // console.log(loading, 'loadin ')
 
   const handleSubmit = (e) => {
     e.preventDefault() // Impede o envio do formulário
@@ -15,7 +17,7 @@ export function GoogleSign() {
       <Signin>
         <Card>
           <form
-            action="https://devtechbarber.vercel.app/api/auth/signin/google"
+            action="https://localhost:3000/"
             method="POST"
             onSubmit={handleSubmit}
           >
@@ -27,7 +29,7 @@ export function GoogleSign() {
             <input
               type="hidden"
               name="callbackUrl"
-              value="https://devtechbarber.vercel.app/"
+              value="https://localhost:3000"
             />
             <ProviderButton type="submit">
               <ProviderLogo

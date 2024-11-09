@@ -4,7 +4,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut
 } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
@@ -58,18 +57,8 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  // Função de registro
-  const register = async (email, password) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password)
-    } catch (error) {
-      console.error('Erro no registro:', error)
-      alert(error.message)
-    }
-  }
-
   return (
-    <UserContext.Provider value={{ user, loading, login, logout, register }}>
+    <UserContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </UserContext.Provider>
   )
