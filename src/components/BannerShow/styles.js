@@ -8,6 +8,15 @@ export const Header = styled.header`
 
   margin-left: auto;
   margin-right: auto;
+
+  @media (min-width: 992px) {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  --tw-bg-opacity: 1;
+  background-color: rgba(22, 27, 34, var(--tw-bg-opacity));
 `
 export const Container = styled.div`
   margin-bottom: 1.25rem;
@@ -20,44 +29,60 @@ export const Banner = styled.img`
   width: 100%;
   inset: 0px;
   color: transparent;
-
   object-fit: cover;
   max-width: 100%;
-  height: auto;
-
   display: block;
   vertical-align: middle;
 `
 export const Overlay = styled.div`
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  background-size: cover;
+  pointer-events: none;
   background-color: rgba(0, 0, 0, 0.8);
-  pointer-events: none; /* Impede que o overlay interfira na interação do conteúdo */
+  //pointer-events: none; /* Impede que o overlay interfira na interação do conteúdo */
+  @media (min-width: 992px) {
+    background-image: linear-gradient(
+        to right,
+        #161b22,
+        rgba(22, 27, 34, 0) 35%
+      ),
+      linear-gradient(to left, #161b22, rgba(22, 27, 34, 0) 35%);
+  }
 `
 export const Main = styled.main`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-
   padding-left: 1rem;
   padding-right: 1rem;
-
   gap: 1rem;
-
   display: flex;
-
   top: 1rem;
+  @media (min-width: 992px) {
+    padding-left: 0;
+    padding-right: 0;
+    gap: 0.75rem;
+    height: 304px;
+    top: 1.5rem;
+  }
 `
 export const Poster = styled.div`
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+`
+export const PosterDiv = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 20;
   position: relative;
-
+  @media (min-width: 992px) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
   border-radius: 0;
   overflow: hidden;
   width: 116px;
@@ -67,9 +92,6 @@ export const Poster = styled.div`
   z-index: 2;
   @media (min-width: 992px) {
     width: 184px;
-  }
-
-  @media (min-width: 992px) {
     height: 272px;
   }
 `
@@ -79,31 +101,24 @@ export const PosterImg = styled.img`
   width: 100%;
   inset: 0px;
   color: transparent;
-
   -o-object-fit: cover;
   object-fit: cover;
-
   box-sizing: border-box;
-
   max-width: 100%;
-  height: auto;
-
   display: block;
   vertical-align: middle;
 `
 export const Details = styled.div`
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-
-  justify-content: center;
-
-  align-items: center;
-
+  flex-direction: column;
+  width: 100%;
+  display: flex;
   z-index: 20;
 
-  position: relative;
+  @media (min-width: 992px) {
+    margin-left: 1.5rem;
+  }
 `
-export const Title = styled.h1`
+export const TitleDiv = styled.div`
   gap: 0.5rem;
   align-items: center;
   display: flex;
@@ -111,7 +126,11 @@ export const Title = styled.h1`
   overflow: hidden;
   -webkit-box-orient: vertical;
   margin-bottom: 1rem;
-
+  @media (min-width: 992px) {
+    margin-top: 1rem;
+  }
+`
+export const Title = styled.h1`
   font-size: 1.125rem;
   line-height: 1.75rem;
   margin-left: 0;
@@ -119,17 +138,27 @@ export const Title = styled.h1`
   font-family: '__UOL_BOLD_TEXT_0090c7', '__UOL_BOLD_TEXT_Fallback_0090c7';
   font-weight: inherit;
   margin: 0;
+  @media (min-width: 992px) {
+    line-height: 2rem;
+    font-size: 28px;
+  }
 `
 export const Session = styled.div`
   flex-direction: column;
   display: flex;
   position: relative;
+  @media (min-width: 992px) {
+    margin-top: 0.5rem;
+  }
 `
 export const Info = styled.div`
   align-items: center;
   flex-wrap: wrap;
   display: flex;
   margin-bottom: 1.5rem;
+  @media (min-width: 992px) {
+    margin-bottom: 1rem;
+  }
 `
 export const Rating = styled.div`
   font-size: 0.75rem;
@@ -139,6 +168,9 @@ export const Rating = styled.div`
   cursor: pointer;
   display: flex;
   margin-right: 0.75rem;
+  @media (min-width: 992px) {
+    margin-left: 0.25rem;
+  }
   .rating {
     box-sizing: border-box;
     border: 0 solid #e5e7eb;
@@ -191,6 +223,23 @@ export const Duration = styled.span`
   border-right-width: 2px;
   margin-right: 1rem;
   border-color: rgba(97, 118, 148);
+
+  @media (min-width: 992px) {
+    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+`
+export const ShowGenre = styled.span`
+  font-size: 0.75rem;
+  line-height: 1rem;
+  @media (min-width: 992px) {
+    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-right: 0.75rem;
+    flex: 1 1 0%;
+  }
 `
 export const DescriptionContainer = styled.div`
   margin-bottom: 1.5rem;

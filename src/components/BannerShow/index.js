@@ -7,14 +7,17 @@ import {
   Overlay,
   Main,
   Poster,
+  PosterDiv,
   PosterImg,
   Details,
+  TitleDiv,
   Title,
   Session,
   Info,
   Rating,
   Age,
   Duration,
+  ShowGenre,
   DescriptionContainer,
   DescriptionText,
   ReadMoreButton,
@@ -38,15 +41,20 @@ export function BannerShows() {
           <Main className="content py-3">
             {/* Poster do Filme */}
             <Poster>
-              <PosterImg
-                src="https://ingresso-a.akamaihd.net/img/cinema/cartaz/4238-cartaz.jpg"
-                alt="Poster do filme Interestelar"
-              />
+              <PosterDiv>
+                <PosterImg
+                  src="https://ingresso-a.akamaihd.net/img/cinema/cartaz/4238-cartaz.jpg"
+                  alt="Poster do filme Interestelar"
+                />
+              </PosterDiv>
             </Poster>
 
             {/* Detalhes do Filme */}
             <Details>
-              <Title className="title">Interestelar</Title>
+              <TitleDiv>
+                <Title className="title">Interestelar</Title>
+              </TitleDiv>
+
               <Session>
                 <Info className="info">
                   <Rating>
@@ -55,14 +63,7 @@ export function BannerShows() {
                     </button>
                   </Rating>
                   <Duration>2h49</Duration>
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      lineHeight: '1rem'
-                    }}
-                  >
-                    Ficção
-                  </span>
+                  <ShowGenre>Ficção</ShowGenre>
                 </Info>
                 {/* Descrição com Botão de Expansão */}{' '}
                 <DescriptionContainer>
