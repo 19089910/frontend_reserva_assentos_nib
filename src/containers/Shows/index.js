@@ -1,56 +1,52 @@
 import React from 'react'
-
-// import Header from '../../components'
-
 import { Link } from 'react-router-dom'
 
-import { HorizontalBorder, ShowTime } from './styles'
+import { BannerShows } from '../../components/BannerShow'
 
 export function Shows() {
   return (
     <>
-      <header />
-      {'Header'}
-      <main>
-        <header></header>
-        <body>
-          <ul>
-            <li>
-              <span>Sessões</span>
-            </li>
-            <li>
-              <span>Sobre o show</span>
-            </li>
-          </ul>
-          <section>
-            <div>dias da semana</div>
-          </section>
-          <section>
-            <HorizontalBorder>
+      <BannerShows />
+      <div>
+        <ul>
+          <li>
+            <span>Sessões</span>
+          </li>
+          <li>
+            <span>Sobre o show</span>
+          </li>
+        </ul>
+
+        <section>
+          <div>Dias da semana</div>
+        </section>
+
+        <section>
+          <div>
+            <div>
+              <button aria-label="Botão 1" />
+              <button aria-label="Botão 2" />
+              <button aria-label="Botão 3" />
+            </div>
+            <div>
               <div>
-                <button />
-                <button />
-                <button />
+                <img src="sua-imagem.jpg" alt="Imagem do local" />
               </div>
               <div>
-                <div>
-                  <img />
-                </div>
-                <div>
-                  <li>Nib Grande Circular</li>
-                  <li>Av. Autaz Mirim, 7761 | Tancredo Neves</li>
-                </div>
+                <li>Nib Grande Circular</li>
+                <li>Av. Autaz Mirim, 7761 | Tancredo Neves</li>
               </div>
-            </HorizontalBorder>
-            <ShowTime>
-              <button type="button">Escolher horário</button>
-              <Link>19:00</Link>
-              <button type="button">Escolher horário</button>
-              <Link>20:00</Link>
-            </ShowTime>
-          </section>
-        </body>
-      </main>
+            </div>
+          </div>
+
+          <div>
+            <button type="button">Escolher horário</button>
+            <Link to="/reserva?time=19:00">19:00</Link>
+            <button type="button">Escolher horário</button>
+            <Link to="/reserva?time=20:00">20:00</Link>
+          </div>
+        </section>
+      </div>
     </>
   )
 }

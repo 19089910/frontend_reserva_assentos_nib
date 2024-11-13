@@ -14,7 +14,9 @@ export default createGlobalStyle`
     background-color: #161b22;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     margin: 0;
+    line-height: inherit;
     padding: 0;
+    color: #f0f0f0;
   }
 
   * {
