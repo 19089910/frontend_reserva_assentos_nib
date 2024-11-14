@@ -1,3 +1,4 @@
+/** ainda vou enchugar esse styles */
 import styled from 'styled-components'
 
 export const Header = styled.header`

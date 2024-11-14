@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import { BannerShows } from '../../components/BannerShow'
+import { DetailsShow } from '../../components/DetailsShow'
+import { SessionsShow } from '../../components/SessionsShow'
 import {
   SectionContainer,
   SpaceConteiner,
@@ -12,6 +13,7 @@ import {
 
 export function Shows() {
   const [activeOption, setActiveOption] = useState('sessions')
+
   return (
     <>
       <BannerShows />
@@ -35,39 +37,11 @@ export function Shows() {
             </SessionOption>
           </Option>
 
-          <section>
-            <div>
-              <div>Dias da semana</div>
-            </div>
-          </section>
+          {/* Renderizar a seção "Sessões" apenas se activeOption for 'sessions' */}
+          {activeOption === 'sessions' && <SessionsShow />}
 
-          <section>
-            <div>
-              <div>Dias da semana</div>
-            </div>
-            <div>
-              <div>
-                <button aria-label="Botão 1" />
-                <button aria-label="Botão 2" />
-                <button aria-label="Botão 3" />
-              </div>
-              <div>
-                <div>
-                  <img src="sua-imagem.jpg" alt="Imagem do local" />
-                </div>
-                <div>
-                  <li>Nib Grande Circular</li>
-                  <li>Av. Autaz Mirim, 7761 | Tancredo Neves</li>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button type="button">Escolher horário</button>
-              <Link to="/reserva?time=19:00">19:00</Link>
-              <button type="button">Escolher horário</button>
-              <Link to="/reserva?time=20:00">20:00</Link>
-            </div>
-          </section>
+          {/* Renderizar a seção "Sobre o Show" apenas se activeOption for 'details' */}
+          {activeOption === 'details' && <DetailsShow />}
         </ContentContainer>
         <SpaceConteiner />
       </SectionContainer>

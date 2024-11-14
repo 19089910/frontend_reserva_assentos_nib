@@ -29,7 +29,7 @@ import {
 export function BannerShows() {
   return (
     <Header>
-      <Container className="container mx-auto">
+      <Container>
         {/* Imagem de Fundo com Gradiente */}
         <div style={{ position: ' relative', width: '100%', height: '100%' }}>
           <Banner
@@ -38,7 +38,7 @@ export function BannerShows() {
             className="background-img"
           />
 
-          <Main className="content py-3">
+          <Main>
             {/* Poster do Filme */}
             <Poster>
               <PosterDiv>
