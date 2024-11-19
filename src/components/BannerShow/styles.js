@@ -1,7 +1,7 @@
 /** ainda vou enchugar esse styles */
 import styled from 'styled-components'
 
-export const Header = styled.header`
+export const SectionContainer = styled.section`
   max-width: 1440px;
 
   margin-top: 0;

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  Header,
+  SectionContainer,
   Container,
   Banner,
   Overlay,
@@ -28,7 +28,7 @@ import {
 
 export function BannerShows() {
   return (
-    <Header>
+    <SectionContainer>
       <Container>
         {/* Imagem de Fundo com Gradiente */}
         <div style={{ position: ' relative', width: '100%', height: '100%' }}>
@@ -99,6 +99,6 @@ export function BannerShows() {
           <Overlay />
         </div>
       </Container>
-    </Header>
+    </SectionContainer>
   )
 }
