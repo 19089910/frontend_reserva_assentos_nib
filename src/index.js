@@ -13,7 +13,7 @@ const ResponsiveDiv = styled.div`
   margin-top: 50px;
 
   @media (min-width: 768px) {
-    margin-top: 120px;
+    margin-top: 65px; //120px;
   }
 `
 const root = ReactDOM.createRoot(document.getElementById('root'))
