@@ -76,6 +76,19 @@ export const LogoDiv = styled.div`
   height: 2.25rem;
   position: relative;
 `
+export const LogoImg = styled.img`
+  @media (min-width: 600px) {
+    width: 75%;
+  }
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
+  vertical-align: baseline;
+  max-width: none;
+  display: inline-block;
+`
 export const Location = styled.div`
   @media (min-width: 768px) {
     font-size: 1rem;

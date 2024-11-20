@@ -1,5 +1,7 @@
 import React from 'react'
 
+import BannerImg from '../../assets/banner.png'
+import PosterImgS from '../../assets/poster.png'
 import {
   SectionContainer,
   Container,
@@ -33,8 +35,8 @@ export function BannerShows() {
         {/* Imagem de Fundo com Gradiente */}
         <div style={{ position: ' relative', width: '100%', height: '100%' }}>
           <Banner
-            src="https://ingresso-a.akamaihd.net/img/cinema/cartaz/4238-destaque.jpg"
-            alt="Banner do filme Interestelar"
+            src={BannerImg}
+            alt="Banner do filme"
             className="background-img"
           />
 
@@ -42,34 +44,33 @@ export function BannerShows() {
             {/* Poster do Filme */}
             <Poster>
               <PosterDiv>
-                <PosterImg
-                  src="https://ingresso-a.akamaihd.net/img/cinema/cartaz/4238-cartaz.jpg"
-                  alt="Poster do filme Interestelar"
-                />
+                <PosterImg src={PosterImgS} alt="Poster do filme" />
               </PosterDiv>
             </Poster>
 
             {/* Detalhes do Filme */}
             <Details>
               <TitleDiv>
-                <Title className="title">Interestelar</Title>
+                <Title className="title">As aventuras dos brinquedos</Title>
               </TitleDiv>
 
               <Session>
                 <Info className="info">
                   <Rating>
                     <button className="rating" aria-label="Abrir classificação">
-                      <Age>10</Age>
+                      <Age>L</Age>
                     </button>
                   </Rating>
-                  <Duration>2h49</Duration>
-                  <ShowGenre>Ficção</ShowGenre>
+                  <Duration>1h20</Duration>
+                  <ShowGenre>Infantil</ShowGenre>
                 </Info>
                 {/* Descrição com Botão de Expansão */}{' '}
                 <DescriptionContainer>
                   <DescriptionText>
-                    O aclamado cineasta Christopher Nolan (dos filmes “O
-                    Cavaleiro das Trevas”, “A Origem”) dirige um elenco
+                    Prepare-se para um espetáculo que vai encantar toda a
+                    família! De 20 a 24 de outubro, venha viver uma aventura
+                    mágica com brinquedos que ganham vida, transportando você
+                    para o infinito e além!
                   </DescriptionText>
                   <ReadMoreButton href="#details">
                     Continuar lendo

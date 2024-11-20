@@ -195,13 +195,13 @@ export const Rating = styled.div`
 export const Age = styled.div`
   box-sizing: border-box;
   border: 0 solid #e5e7eb;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(255 255 255);
   text-transform: uppercase;
   font-size: 0.75rem;
   line-height: 1rem;
   font-family: '__UOL_BOLD_TEXT_0090c7', '__UOL_BOLD_TEXT_Fallback_0090c7';
   text-align: center;
-  background-color: rgb(0 149 218);
+  background-color: rgb(20 165 85);
   border-radius: 0.25rem;
   justify-content: center;
   align-items: center;

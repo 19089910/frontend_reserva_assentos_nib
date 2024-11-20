@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+import LogoMin from '../../assets/Marca_GC_100.png'
+import LogoLarg from '../../assets/maxresdefault.png'
 import {
   HeaderContainer,
   Container,
   Logo,
   LogoDiv,
+  LogoImg,
   Location,
   LocationDiv,
   Wrapper,
@@ -16,20 +19,14 @@ import {
 } from './styles'
 
 export function Header() {
-  const [logoSrc, setLogoSrc] = useState(
-    'https://ingresso-a.akamaihd.net/catalog/img/ingresso-logo-v1-desktop-final.svg'
-  )
+  const [logoSrc, setLogoSrc] = useState(LogoLarg)
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 600) {
-        setLogoSrc(
-          'https://ingresso-a.akamaihd.net/catalog/img/ingresso-logo-v1-mobile-final.svg'
-        )
+        setLogoSrc(LogoMin)
       } else {
-        setLogoSrc(
-          'https://ingresso-a.akamaihd.net/catalog/img/ingresso-logo-v1-desktop-final.svg'
-        )
+        setLogoSrc(LogoLarg)
       }
     }
 
@@ -45,22 +42,9 @@ export function Header() {
       {/* Logo */}
       <Container>
         <Wrapper>
-          <Logo href="https://www.ingresso.com/">
+          <Logo href="https://nibgrandecircular.com/">
             <LogoDiv>
-              <img
-                alt="Logo da Ingresso.com"
-                src={logoSrc}
-                style={{
-                  position: 'absolute',
-                  height: '100%',
-                  width: '100%',
-                  inset: 0,
-                  color: 'transparent',
-                  verticalAlign: 'baseline;',
-                  maxWidth: 'none;',
-                  display: 'inline-block;'
-                }}
-              />
+              <LogoImg alt="Logo" src={logoSrc} />
             </LogoDiv>
           </Logo>
 
