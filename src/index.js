@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import styled from 'styled-components'
 
+import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { UserProvider } from './hooks/useFirebaseAuth'
 import Routes from './routes/routes'
@@ -23,6 +24,7 @@ root.render(
       <ResponsiveDiv>
         <Header />
         <Routes />
+        <Footer />
       </ResponsiveDiv>
     </UserProvider>
     <GlobalStyles />

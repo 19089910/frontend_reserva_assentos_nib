@@ -24,17 +24,12 @@ export const SectionSinopse = styled.section`
   border-style: solid;
   border-bottom-width: 1px;
 `
-export const Sinopse = styled.h1`
+export const Titles = styled.h1`
   font-size: 1.25rem;
   line-height: 1.75rem;
-
-  font-family: var(--uol-bold-text);
-  font-weight: inherit;
+  padding-bottom: 0.75rem;
 
   margin: 0;
-
-  font-size: inherit;
-  font-weight: inherit;
 `
 export const Description = styled.p`
   font-size: 1rem;
@@ -64,9 +59,6 @@ export const ButtonSessions = styled.button`
   background-color: transparent;
   background-image: none;
   text-transform: none;
-  font-family: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
 
   background-image: linear-gradient(to right, #3255e2, #6c04ba);
 `
@@ -81,3 +73,25 @@ export const SectionSheet = styled.section`
   box-sizing: border-box;
   border: 0 solid #e5e7eb;
 `
+export const Grid = styled.ul`
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  @media (min-width: 600px) {
+    gap: 1rem;
+  }
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  gap: 0.75rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+`
+export const GridLine = styled.li``
