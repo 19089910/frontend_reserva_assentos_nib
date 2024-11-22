@@ -23,7 +23,7 @@ export function DetailsShow() {
           superestrutura de iluminação e som de cinema, esta experiência única
           acontecerá no Auditório da Nova Igreja Batista - Grande Circular.
         </Description>
-        <ButtonSessions>Ver sessões</ButtonSessions>
+        <ButtonSessions href="#sessions">Ver sessões</ButtonSessions>
       </SectionSinopse>
       {/* trilers */}
       <section></section>

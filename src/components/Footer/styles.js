@@ -24,9 +24,9 @@ export const FooterContainer = styled.footer`
 `
 export const FooterWrapper = styled.div`
   flex-wrap: wrap;
-
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
 `
 
 export const FooterInfo = styled.div`
@@ -108,7 +108,7 @@ export const Credits = styled.div`
   border: 0 solid #e5e7eb;
   border-top-width: 1px;
   border-color: rgb(33 38 45);
-  padding-top: 4px;
+  padding-top: 20px;
   text-align: center;
   font-size: 13px;
 
