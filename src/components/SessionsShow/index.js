@@ -5,17 +5,17 @@ import { show } from '../../constants'
 
 export function SessionsShow() {
   const formatWeekDay = (dateString) => {
-    const options = { weekday: 'short' } // Ex: 'dom', 'seg'
-    return new Intl.DateTimeFormat('pt-BR', options)
-      .format(new Date(dateString))
-      .toUpperCase()
+    const date = new Date(dateString) // Cria o objeto Date
+    const weekdays = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'] // Array com os dias da semana em português
+    const weekDayIndex = date.getUTCDay() // Retorna o índice do dia da semana em UTC (0 = domingo, 1 = segunda, ...)
+    return weekdays[weekDayIndex].toUpperCase() // Retorna o nome do dia da semana em maiúsculas
   }
 
   const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: '2-digit' } // Ex: '20/10'
-    return new Intl.DateTimeFormat('pt-BR', options).format(
-      new Date(dateString)
-    )
+    const date = new Date(dateString) // Cria o objeto Date
+    const day = date.getUTCDate() // Usa getUTCDate para evitar deslocamento de horário
+    const month = date.getUTCMonth() + 1 // getUTCMonth retorna de 0 a 11
+    return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}`
   }
 
   const groupByDate = (shows) => {
@@ -29,6 +29,7 @@ export function SessionsShow() {
   }
 
   const groupedShows = groupByDate(show)
+  console.log(show)
 
   return (
     <section>
