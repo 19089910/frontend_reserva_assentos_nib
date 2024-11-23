@@ -1,3 +1,7 @@
+/**
+ * essa informação vai ser desenvolvido no backend
+ */
+
 export const show = [
   {
     showName: 'Uma aventura dos brinquedos',

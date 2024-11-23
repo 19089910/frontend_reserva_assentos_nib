@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { show } from '../../constants'
+import { ListWrapper, List, TrackList, Splide, Flex } from './styles'
 
 export function SessionsShow() {
+  const [activeOption, setActiveOption] = useState()
+
   const formatWeekDay = (dateString) => {
     const date = new Date(dateString) // Cria o objeto Date
     const weekdays = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'] // Array com os dias da semana em português
@@ -28,31 +31,40 @@ export function SessionsShow() {
     return grouped
   }
 
-  const groupedShows = groupByDate(show)
-  console.log(show)
+  const groupedShows = groupByDate(show[0].dates) // se for criar outro shows[1]
 
   return (
     <section>
-      <div>
-        <div className="splide__list">
-          {Object.keys(groupedShows).map((date, index) => (
-            <div
-              key={index}
-              className={`splide__slide ${index === 0 ? 'is-active' : ''}`}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${index + 1} of ${Object.keys(groupedShows).length}`}
-            >
-              <div className="flex cursor-pointer flex-col items-center border-none bg-ing-neutral-500 px-0 py-1 font-uol-bold text-base text-white">
-                <span className="font-uol-bold uppercase text-lg">
-                  {formatWeekDay(date)}
-                </span>
-                <span>{formatDate(date)}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <ListWrapper>
+        <List>
+          <div className="buttons"></div>
+          <TrackList>
+            {Object.keys(groupedShows).map((date, index) => (
+              <Splide
+                key={index}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} of ${
+                  Object.keys(groupedShows).length
+                }`}
+              >
+                <Flex>
+                  <span
+                    style={{
+                      textTransform: 'uppercase',
+                      fontSize: '1.125rem',
+                      lineHeight: '1.75rem'
+                    }}
+                  >
+                    {formatWeekDay(date)}
+                  </span>
+                  <span>{formatDate(date)}</span>
+                </Flex>
+              </Splide>
+            ))}
+          </TrackList>
+        </List>
+      </ListWrapper>
 
       <div>
         <div>
@@ -72,7 +84,8 @@ export function SessionsShow() {
                 <Link to={`/reserva?time=${new Date(time).toISOString()}`}>
                   {new Date(time).toLocaleTimeString('pt-BR', {
                     hour: '2-digit',
-                    minute: '2-digit'
+                    minute: '2-digit',
+                    timeZone: 'America/Manaus' // Define o fuso horário correto
                   })}
                 </Link>
               </div>
