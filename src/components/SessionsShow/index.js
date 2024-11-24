@@ -2,10 +2,22 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { show } from '../../constants'
-import { ListWrapper, List, TrackList, Splide, Flex } from './styles'
+import {
+  ListWrapper,
+  List,
+  RelativeList,
+  TrackList,
+  CarouselList,
+  Splide,
+  Flex
+} from './styles'
 
 export function SessionsShow() {
-  const [activeOption, setActiveOption] = useState()
+  const [activeOption, setActiveOption] = useState(null) // Guarda a data selecionada
+  // Função para selecionar a data
+  const handleDateSelect = (date) => {
+    setActiveOption(date)
+  }
 
   const formatWeekDay = (dateString) => {
     const date = new Date(dateString) // Cria o objeto Date
@@ -37,32 +49,37 @@ export function SessionsShow() {
     <section>
       <ListWrapper>
         <List>
-          <div className="buttons"></div>
-          <TrackList>
-            {Object.keys(groupedShows).map((date, index) => (
-              <Splide
-                key={index}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${index + 1} of ${
-                  Object.keys(groupedShows).length
-                }`}
-              >
-                <Flex>
-                  <span
-                    style={{
-                      textTransform: 'uppercase',
-                      fontSize: '1.125rem',
-                      lineHeight: '1.75rem'
-                    }}
+          <RelativeList>
+            <div className="buttons"></div>
+            <TrackList>
+              <CarouselList>
+                {Object.keys(groupedShows).map((date, index) => (
+                  <Splide
+                    key={index}
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${index + 1} of ${
+                      Object.keys(groupedShows).length
+                    }`}
+                    onClick={() => handleDateSelect(date)} // Atualiza o estado com a data clicada
                   >
-                    {formatWeekDay(date)}
-                  </span>
-                  <span>{formatDate(date)}</span>
-                </Flex>
-              </Splide>
-            ))}
-          </TrackList>
+                    <Flex className={activeOption === date ? 'active' : ''}>
+                      <span
+                        style={{
+                          textTransform: 'uppercase',
+                          fontSize: '1.125rem',
+                          lineHeight: '1.75rem'
+                        }}
+                      >
+                        {formatWeekDay(date)}
+                      </span>
+                      <span>{formatDate(date)}</span>
+                    </Flex>
+                  </Splide>
+                ))}
+              </CarouselList>
+            </TrackList>
+          </RelativeList>
         </List>
       </ListWrapper>
 
@@ -76,9 +93,9 @@ export function SessionsShow() {
             <li>Av. Autaz Mirim, 7761 | Tancredo Neves</li>
           </div>
         </div>
-        {Object.keys(groupedShows).map((date, index) => (
-          <div key={index}>
-            {groupedShows[date].map((time, idx) => (
+        {activeOption && (
+          <div>
+            {groupedShows[activeOption].map((time, idx) => (
               <div key={idx}>
                 <button type="button">Escolher horário</button>
                 <Link to={`/reserva?time=${new Date(time).toISOString()}`}>
@@ -91,7 +108,7 @@ export function SessionsShow() {
               </div>
             ))}
           </div>
-        ))}
+        )}
       </div>
     </section>
   )

@@ -40,7 +40,23 @@ export const show = [
         seats: []
       },
       {
-        showDateTime: '2024-10-24T19:00:00Z',
+        showDateTime: '2024-10-25T19:00:00Z',
+        seats: []
+      },
+      {
+        showDateTime: '2024-10-26T19:00:00Z',
+        seats: []
+      },
+      {
+        showDateTime: '2024-10-27T19:00:00Z',
+        seats: []
+      },
+      {
+        showDateTime: '2024-10-28T19:00:00Z',
+        seats: []
+      },
+      {
+        showDateTime: '2024-10-29T19:00:00Z',
         seats: []
       }
     ]

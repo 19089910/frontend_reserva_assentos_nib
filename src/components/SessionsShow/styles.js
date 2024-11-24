@@ -22,20 +22,23 @@ export const List = styled.div`
   padding-left: 10px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+`
+export const RelativeList = styled.div`
   visibility: visible;
   position: relative;
 `
 export const TrackList = styled.div`
   padding-left: 0px;
   padding-right: 0px;
-  overflow: hidden;
-  position: relative;
-  z-index: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+`
+export const CarouselList = styled.div`
   transform: translateX(0px);
   backface-visibility: hidden;
   display: flex;
@@ -44,23 +47,25 @@ export const TrackList = styled.div`
   padding: 0 !important;
 `
 export const Splide = styled.div`
-  margin-right: 1rem;
-  width: calc(16.6667% - 0.833333rem);
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
   backface-visibility: hidden;
   box-sizing: border-box;
   flex-shrink: 0;
   list-style-type: none !important;
   margin: 0;
   position: relative;
+
+  margin-right: 1rem;
+  width: calc(16.6667% - 0.833333rem);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `
 export const Flex = styled.div`
-  color: rgb(255 255 255);
-  font-size: 1rem;
-  line-height: 1.5rem;
+  color: rgb(173 182 194);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   padding-left: 0;
   padding-right: 0;
   background-color: rgb(52 60 70);
@@ -69,4 +74,10 @@ export const Flex = styled.div`
   flex-direction: column;
   cursor: pointer;
   display: flex;
+
+  &.active {
+    color: rgb(255 255 255);
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 `
