@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import { show } from '../../constants'
 import {
@@ -11,7 +10,18 @@ import {
   TrackList,
   CarouselList,
   Splide,
-  Flex
+  Flex,
+  SessionsWrapper,
+  Sessions,
+  TruckSessions,
+  LocationSessions,
+  Title,
+  Description,
+  SessionsContainer,
+  LinkSessions,
+  FlexSessions,
+  Relative,
+  RelativeSpan
 } from './styles'
 
 export function SessionsShow() {
@@ -70,7 +80,7 @@ export function SessionsShow() {
       <ListWrapper>
         <List>
           <RelativeList>
-            <div className="splide__arrows">
+            <div>
               <ButtonList
                 onClick={handlePrev}
                 disabled={startIndex === 0}
@@ -117,15 +127,7 @@ export function SessionsShow() {
                   .map((date, index) => (
                     <Splide key={index} onClick={() => handleDateSelect(date)}>
                       <Flex isActive={activeOption === date}>
-                        <span
-                          style={{
-                            textTransform: 'uppercase',
-                            fontSize: '1.125rem',
-                            lineHeight: '1.75rem'
-                          }}
-                        >
-                          {formatWeekDay(date)}
-                        </span>
+                        <span>{formatWeekDay(date)}</span>
                         <span>{formatDate(date)}</span>
                       </Flex>
                     </Splide>
@@ -136,33 +138,50 @@ export function SessionsShow() {
         </List>
       </ListWrapper>
 
-      <div>
-        <div>
-          <div>
-            <img src="sua-imagem.jpg" alt="Imagem do local" />
-          </div>
-          <div>
-            <li>Nib Grande Circular</li>
-            <li>Av. Autaz Mirim, 7761 | Tancredo Neves</li>
-          </div>
-        </div>
-        {activeOption && (
-          <div>
-            {groupedShows[activeOption].map((time, idx) => (
-              <div key={idx}>
-                <button type="button">Escolher horário</button>
-                <Link to={`/reserva?time=${new Date(time).toISOString()}`}>
-                  {new Date(time).toLocaleTimeString('pt-BR', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    timeZone: 'America/Manaus' // Define o fuso horário correto
-                  })}
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <SessionsWrapper>
+        <Sessions>
+          <TruckSessions>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '1rem'
+              }}
+            >
+              <div className="button_favorito"></div>
+              <LocationSessions>
+                <Title>Nib Grande Circular</Title>
+                <Description>
+                  Av. Autaz Mirim, 7761 | Tancredo Neves
+                </Description>
+              </LocationSessions>
+            </div>
+            <div className="buttons" style={{ display: 'flex' }}></div>
+          </TruckSessions>
+          <FlexSessions>
+            {activeOption && (
+              <SessionsContainer>
+                {groupedShows[activeOption].map((time, idx) => (
+                  <LinkSessions
+                    key={idx}
+                    to={`/reserva?time=${new Date(time).toISOString()}`}
+                  >
+                    <Relative>
+                      <RelativeSpan>
+                        {new Date(time).toLocaleTimeString('pt-BR', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          timeZone: 'America/Manaus' // Define o fuso horário correto
+                        })}
+                      </RelativeSpan>
+                    </Relative>
+                  </LinkSessions>
+                ))}
+              </SessionsContainer>
+            )}
+          </FlexSessions>
+        </Sessions>
+      </SessionsWrapper>
     </section>
   )
 }
