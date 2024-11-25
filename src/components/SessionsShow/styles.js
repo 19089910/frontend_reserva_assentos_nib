@@ -57,11 +57,16 @@ export const Splide = styled.div`
   margin-right: 1rem;
   width: calc(16.6667% - 0.833333rem);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  @media (min-width: 992px) {
+    width: calc(25% - 0.75rem);
+  }
 `
 export const Flex = styled.div`
-  color: rgb(173 182 194);
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  color: ${(props) =>
+    props.isActive ? ' rgb(255 255 255)' : 'rgb(173 182 194)'};
+  font-size: ${(props) => (props.isActive ? '1rem' : '0.875rem')};
+  line-height: ${(props) => (props.isActive ? ' 1.5rem' : '1.25rem')};
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   margin-top: 0.5rem;
@@ -74,10 +79,42 @@ export const Flex = styled.div`
   flex-direction: column;
   cursor: pointer;
   display: flex;
-
-  &.active {
-    color: rgb(255 255 255);
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
+`
+export const ButtonList = styled.button`
+  ${({ direction }) => (direction === 'left' ? 'left: 0;' : 'right: 0;')}
+  //pointer-events: none;
+  //opacity: 0;
+  background-color: transparent;
+  border-style: none;
+  border-radius: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 10;
+  top: calc(50% - 12px);
+  position: absolute;
+  cursor: default;
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+  text-transform: none;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+`
+export const Arrow = styled.svg`
+  transform: ${({ direction }) =>
+    direction === 'left' ? 'scaleX(-1);' : 'scaleX(1);'};
+  fill: #98aaec;
+  width: 1.5rem;
+  height: 1.5rem;
 `
