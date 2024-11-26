@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Shows />} />
-        <Route path="/assentos" element={<Checkout />} />
+        <Route path="/reserva" element={<Checkout />} />
         <Route path="/signin" element={<GoogleSign />} />
       </Routes>
     </Router>

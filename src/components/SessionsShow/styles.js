@@ -58,7 +58,7 @@ export const Splide = styled.div`
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   @media (min-width: 992px) {
-    width: calc(19.6667% - 0.833333rem);
+    width: calc(20.6667% - -1.166667rem);
   }
 `
 export const Flex = styled.div`
@@ -101,7 +101,6 @@ export const ButtonList = styled.button`
   top: calc(50% - 12px);
   position: absolute;
   cursor: default;
-  -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
   text-transform: none;

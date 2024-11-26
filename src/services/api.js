@@ -1,5 +1,6 @@
 import axios from 'axios'
 
-export const apiCodeBurger = axios.create({
+export const apiNibAssento = axios.create({
   baseURL: 'http://localhost:3001'
 })
+export default apiNibAssento
