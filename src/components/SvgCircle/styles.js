@@ -9,8 +9,18 @@ export const Conteiner = styled.svg`
 `
 export const Circle = styled.circle`
   transition: 200ms;
-  fill: ${(props) => (props.isSelected ? 'rgb(255, 214, 51)' : '#98aaec')};
+  fill: ${(props) =>
+    props.occupiedSeat
+      ? 'rgb(102, 102, 102)'
+      : props.isSelected
+        ? 'rgb(255, 214, 51)'
+        : '#98aaec'};
 `
 export const Path = styled.path`
-  fill: ${(props) => (props.isSelected ? 'rgb(255, 214, 51)' : '#98aaec')};
+  fill: ${(props) =>
+    props.occupiedSeat
+      ? 'rgb(102, 102, 102)'
+      : props.isSelected
+        ? 'rgb(255, 214, 51)'
+        : '#98aaec'};
 `

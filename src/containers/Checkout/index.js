@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
+import { Subtitle } from '../../components/Subtitle'
 import api from '../../services/api'
 import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
@@ -95,6 +96,7 @@ export function Checkout() {
                 occupiedSeat={occupiedSeat}
               />
             ))}
+            <Subtitle />
           </div>
         </div>
       </MatrizContainer>

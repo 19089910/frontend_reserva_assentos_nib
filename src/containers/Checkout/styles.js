@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  //height: 100vh;
   margin: 0 auto;
   padding: 10px;
   background: #161b22;
@@ -10,6 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `
+export const ContainerItens = styled.div``
 export const Header = styled.div`
   background: rgb(52, 60, 70); /* Cor de fundo */
   color: #fff; /* Cor do texto */
@@ -254,7 +255,7 @@ export const Text = styled.text`
   font-size: 7em;
   text-anchor: middle;
   text-transform: uppercase;
-  dominant-baseline: middle;
+  //dominant-baseline: middle;
   fill: rgb(0, 0, 0);
 `
 export const Detail = styled.div`
@@ -274,7 +275,7 @@ export const Detail = styled.div`
   width: 0px;
   height: 0px;
   border-bottom: 18px solid rgb(33, 38, 45);
-  border-bottom: 30px solid rgb(33, 38, 45);
+  border-bottom: 31px solid rgb(33, 38, 45);
 `
 export const FooderContainer = styled.div`
   @media (max-width: 1440px) {

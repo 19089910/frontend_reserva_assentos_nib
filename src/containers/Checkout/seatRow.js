@@ -15,7 +15,10 @@ function SeatRow({ seats, onSeatClick, selectedSeat, occupiedSeat }) {
             </RowLabel>
           )}
           <Circle
-            onClick={() => onSeatClick(seat.seatNumber)}
+            onClick={() =>
+              !occupiedSeat.includes(seat.seatNumber) &&
+              onSeatClick(seat.seatNumber)
+            }
             className={
               selectedSeat.includes(seat.seatNumber) ? 'dnWEgS' : 'kjQfvk'
             }
@@ -29,6 +32,7 @@ function SeatRow({ seats, onSeatClick, selectedSeat, occupiedSeat }) {
               <Span height="100" width="100" className="icon">
                 <div data-testid="svg-element" style={{ fontSize: '0px' }}>
                   <SvgCircle
+                    occupiedSeat={occupiedSeat.includes(seat.seatNumber)}
                     disabled={seat.disabled}
                     isSelected={selectedSeat.includes(seat.seatNumber)}
                   />
