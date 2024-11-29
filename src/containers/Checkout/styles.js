@@ -69,6 +69,10 @@ export const ReactTransformComponent = styled.div`
   display: flex;
   height: 34px;
   margin: 0.5px 0px;
+  padding: 0px;
+  border: 0px;
+  font-size: 100%;
+  vertical-align: baseline;
   @media (max-width: 992px) {
     height: 29px;
   }
@@ -198,6 +202,9 @@ export const Circle = styled.div`
   }
 `
 export const Span = styled.span`
+  &.parsonScale {
+    transform: scale(0.5);
+  }
   position: absolute;
 
   display: flex;
@@ -213,8 +220,8 @@ export const RowLabel = styled.span`
   @media (max-width: 992px) {
     font-size: 0.5em;
   }
-
   flex: 1 1 0%;
+  flex: 1 0 2%;
   -webkit-box-align: center;
   align-items: center;
   color: rgb(255, 255, 255);
@@ -223,15 +230,14 @@ export const RowLabel = styled.span`
   justify-content: center;
   font-size: 0.75em;
 `
-export const RowLabelOld = styled.span`
-  display: inline-block;
-  width: 50px; /* Largura fixa para o rótulo */
-  text-align: center; /* Centraliza o texto */
-  color: #fff;
-
-  font-size: 0.875rem; /* Tamanho da fonte */
-`
 export const Stage = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  place-content: center;
   color: rgb(33, 38, 50);
   background: rgb(173, 182, 194);
   font-size: 12px;
@@ -240,8 +246,9 @@ export const Stage = styled.div`
   text-align: center;
   text-transform: uppercase;
   height: 18px;
+  height: 30px;
   border-bottom: 2px solid rgb(240, 240, 240);
-  margin: 16px 0px 16px;
+  margin: 0px 0px 16px;
 `
 export const Text = styled.text`
   font-size: 7em;
@@ -249,4 +256,105 @@ export const Text = styled.text`
   text-transform: uppercase;
   dominant-baseline: middle;
   fill: rgb(0, 0, 0);
+`
+export const Detail = styled.div`
+  /* Configuração para o lado esquerdo */
+  left: 0;
+
+  &.right {
+    left: auto; /* Remove o alinhamento padrão */
+    right: 0; /* Posiciona no lado direito */
+    border-left: 1.7em solid transparent;
+    border-right: unset;
+  }
+  border-right: 1.7em solid transparent;
+  content: '';
+  position: absolute;
+  top: 0px;
+  width: 0px;
+  height: 0px;
+  border-bottom: 18px solid rgb(33, 38, 45);
+  border-bottom: 30px solid rgb(33, 38, 45);
+`
+export const FooderContainer = styled.div`
+  @media (max-width: 1440px) {
+    left: 0px;
+  }
+
+  position: fixed;
+  bottom: 0px;
+  max-width: 1440px;
+  width: 100%;
+  background-color: rgb(52, 60, 70);
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.4px;
+  background-image: url((desconhecido));
+`
+export const FooderWrapper = styled.div`
+  width: 100%;
+  height: 56px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0px 10px;
+  margin: 0px;
+  border: 0px;
+  font-size: 100%;
+  vertical-align: baseline;
+`
+export const ButtonContainer = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+`
+export const Button = styled.button`
+  background-image: linear-gradient(
+    to right,
+    rgb(255, 206, 0),
+    rgb(255, 136, 0)
+  );
+  background-color: rgb(153, 153, 153);
+  color: rgb(33, 38, 45);
+
+  cursor: pointer;
+  position: relative;
+  border: none;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 12px;
+  display: flex;
+  font-weight: 700;
+  font-size: 14px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-height: 40px;
+  width: auto;
+  min-width: 140px;
+  text-transform: none;
+  letter-spacing: 1px;
+  gap: 14px;
+  transition: all 0.3s ease; /* Suaviza a transição */
+
+  /* Hover: muda a cor e adiciona um leve aumento no tamanho */
+  &:hover {
+    background-image: linear-gradient(
+      to right,
+      rgb(255, 230, 50),
+      rgb(255, 160, 50)
+    );
+    transform: scale(1.05); /* Aumenta ligeiramente o botão */
+  }
+
+  /* Active: dá a impressão de um clique ao reduzir o botão */
+  &:active {
+    transform: scale(0.95); /* Reduz ligeiramente o botão */
+    background-image: linear-gradient(
+      to right,
+      rgb(255, 190, 0),
+      rgb(255, 120, 0)
+    );
+  }
 `

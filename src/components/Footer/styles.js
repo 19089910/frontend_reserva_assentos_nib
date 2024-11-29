@@ -7,7 +7,7 @@ export const FooterContainer = styled.footer`
   border-color: rgb(33 38 45);
   font-size: 14px;
   background-color: var(--color-primary);
-  padding: 50px 0;
+  padding: 60px 0;
   color: white;
 
   .container {
@@ -93,7 +93,6 @@ export const FooterContent = styled.section`
 export const FooterHeading = styled.h4`
   font-size: 16px;
   font-weight: bold;
-  position: relative;
   padding-bottom: 12px;
 `
 

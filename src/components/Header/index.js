@@ -42,7 +42,7 @@ export function Header() {
       {/* Logo */}
       <Container>
         <Wrapper>
-          <Logo href="https://nibgrandecircular.com/">
+          <Logo href="https://aventuradosbrinquedos.vercel.app">
             <LogoDiv>
               <LogoImg alt="Logo" src={logoSrc} />
             </LogoDiv>
