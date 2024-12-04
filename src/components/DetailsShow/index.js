@@ -1,11 +1,11 @@
 import React from 'react'
 
+import { Button } from '../Button'
 import {
   Container,
   SectionSinopse,
   Titles,
   Description,
-  ButtonSessions,
   SectionSheet,
   Grid,
   GridLine
@@ -23,7 +23,7 @@ export function DetailsShow() {
           superestrutura de iluminação e som de cinema, esta experiência única
           acontecerá no Auditório da Nova Igreja Batista - Grande Circular.
         </Description>
-        <ButtonSessions href="#sessions">Ver sessões</ButtonSessions>
+        <Button href="#sessions">Ver sessões</Button>
       </SectionSinopse>
       {/* trilers */}
       <section></section>

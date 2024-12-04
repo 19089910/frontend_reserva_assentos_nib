@@ -1,16 +1,28 @@
 import styled from 'styled-components'
 
 export const ContainerButton = styled.button`
-  // layout
-  width: 180px;
-  height: 50px;
-  //margin-top: 75px;
-  //margin-bottom: 25px;
-  // style
-  background: #9758a6;
-  box-shadow: 3px 3px 10px 0px rgba(74, 144, 226, 0.19);
-  border-radius: 100px;
-  border: none;
+  @media (min-width: 600px) {
+    display: inline-flex;
+  }
+
+  color: rgb(255 255 255);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 0.75rem;
+  white-space: nowrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  display: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: none;
+  text-transform: none;
+
+  background-image: linear-gradient(to right, #3255e2, #6c04ba);
   &:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -18,11 +30,4 @@ export const ContainerButton = styled.button`
   &:active {
     opacity: 0.6;
   }
-  // internally
-  color: #eee;
-  text-align: center;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 `
