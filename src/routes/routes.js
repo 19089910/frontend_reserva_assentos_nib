@@ -1,7 +1,8 @@
 import React from 'react'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import { Checkout, GoogleSign, Shows } from '../containers'
+import paths from '../constants/paths'
+import { Checkout, GoogleSign, Shows, Admin } from '../containers'
 
 function App() {
   return (
@@ -10,6 +11,11 @@ function App() {
         <Route path="/" element={<Shows />} />
         <Route path="/reserva" element={<Checkout />} />
         <Route path="/signin" element={<GoogleSign />} />
+
+        <Route path={paths.Order} index element={<Admin />} />
+        <Route path={paths.Shows} index element={<Admin />} />
+        <Route path={paths.NewShow} index element={<Admin />} />
+        <Route path={paths.EditShow} index element={<Admin />} />
       </Routes>
     </Router>
   )
