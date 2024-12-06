@@ -1,32 +1,48 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import React, { useEffect, useState } from 'react'
-import { useForm, useController } from 'react-hook-form'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import ptBR from 'date-fns/locale/pt-BR'
+import React, { useState } from 'react'
+import { useForm, Controller, useFieldArray } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import ReactSelect from 'react-select'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import { ErrorMensage } from '../../../components/ErrorMensage'
 import api from '../../../services/api'
-import { Conteiner, Label, Input, ButtonStyles, LabelUpload } from './styles'
+import {
+  Conteiner,
+  Label,
+  Input,
+  ButtonStyles,
+  LabelUpload,
+  LabelDate,
+  DivDate,
+  Box,
+  ButtonX
+} from './styles'
 
 function NewShow() {
   const [fileName, setFileName] = useState(null)
-  const [dates, setDates] = useState([])
   const navigate = useNavigate()
 
   const schema = Yup.object().shape({
     showName: Yup.string().required('Digite o nome do show'),
     description: Yup.string().required('Digite a descrição do show'),
-    date: Yup.object().required('Escolha uma data para o show'),
+    dates: Yup.array()
+      .of(
+        Yup.date().required('Escolha uma data e horário para o show').nullable()
+      )
+      .min(1, 'Adicione pelo menos uma data e horário'),
     file: Yup.mixed()
-      .test('required', 'Carregue um arquivo', (value) => {
-        return value?.length > 0
-      })
-      .test('fileSize', 'Carregue arquivos de até 2MB', (value) => {
-        return value[0]?.size <= 2000000
-      })
+      .test('required', 'Carregue um arquivo', (value) => value?.length > 0)
+      .test(
+        'fileSize',
+        'Carregue arquivos de até 2MB',
+        (value) => value[0]?.size <= 2000000
+      )
       .test('type', 'Carregue apenas arquivos JPEG ou PNG', (value) => {
         return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
       })
@@ -41,18 +57,19 @@ function NewShow() {
     resolver: yupResolver(schema)
   })
 
-  const {
-    field: selectField // Using `field` to connect to ReactSelect
-  } = useController({
-    name: 'date', // Field name
-    control
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'dates'
   })
 
   const onSubmit = async (data) => {
     const showDataFormData = new FormData()
     showDataFormData.append('showName', data.showName)
     showDataFormData.append('description', data.description)
-    showDataFormData.append('date', data.date.showDateTime)
+    data.dates.forEach((date, index) => {
+      showDataFormData.append(`dates[${index}]`, date.toISOString())
+    })
+    showDataFormData.append('file', data.file[0])
     showDataFormData.append('file', data.file[0])
 
     await toast.promise(api.post('shows', showDataFormData), {
@@ -65,28 +82,11 @@ function NewShow() {
     }, 2000)
   }
 
-  useEffect(() => {
-    // Load show dates
-    async function loadDates() {
-      // Simulando os dados fornecidos como resposta da API
-      const response = {
-        data: {
-          dates: [
-            {
-              showDateTime: '2024-10-20T19:30:00Z',
-              seats: [{ seatNumber: 'A1', isAvailable: true }]
-            },
-            {
-              showDateTime: '2024-10-21T19:30:00Z',
-              seats: [{ seatNumber: 'A2', isAvailable: false }]
-            }
-          ]
-        }
-      }
-      setDates(response.data.dates)
+  const handleRemove = (index) => {
+    if (window.confirm('Tem certeza que deseja remover esta data?')) {
+      remove(index)
     }
-    loadDates()
-  }, [])
+  }
 
   return (
     <Conteiner>
@@ -106,6 +106,23 @@ function NewShow() {
             {fileName || (
               <>
                 <CloudUploadIcon />
+                Carregue o poster do show
+              </>
+            )}
+            <input
+              type="file"
+              accept="image/png,image/jpeg"
+              {...register('file')}
+              onChange={(value) => setFileName(value.target.files[0]?.name)}
+            />
+          </LabelUpload>
+          <ErrorMensage>{errors.file?.message}</ErrorMensage>
+        </div>
+        <div>
+          <LabelUpload>
+            {fileName || (
+              <>
+                <CloudUploadIcon />
                 Carregue o banner do show
               </>
             )}
@@ -113,25 +130,50 @@ function NewShow() {
               type="file"
               accept="image/png,image/jpeg"
               {...register('file')}
-              onChange={(value) => {
-                setFileName(value.target.files[0]?.name)
-              }}
+              onChange={(value) => setFileName(value.target.files[0]?.name)}
             />
           </LabelUpload>
           <ErrorMensage>{errors.file?.message}</ErrorMensage>
         </div>
-        <div>
-          <ReactSelect
-            {...selectField}
-            options={dates}
-            getOptionLabel={(date) =>
-              new Date(date.showDateTime).toLocaleString()
-            }
-            getOptionValue={(date) => date.showDateTime}
-            placeholder="Escolha uma data"
-          />
-          <ErrorMensage>{errors.date?.message}</ErrorMensage>
-        </div>
+        <DivDate>
+          {fields.map((field, index) => (
+            <Box key={field.id}>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={ptBR}
+              >
+                <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                  <ButtonX type="button" onClick={() => handleRemove(index)}>
+                    x
+                  </ButtonX>
+                </div>
+                <Controller
+                  name={`dates[${index}].value`}
+                  control={control}
+                  render={({ field }) => (
+                    <DateTimePicker
+                      {...field}
+                      label={`Data e horário ${index + 1}`}
+                      disablePast
+                      inputFormat="dd/MM/yyyy HH:mm"
+                      renderInput={(params) => (
+                        <Input
+                          {...params}
+                          fullWidth
+                          error={!!errors.dates?.[index]?.value}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+              <ErrorMensage>{errors.dates?.[index]?.message}</ErrorMensage>
+            </Box>
+          ))}
+          <LabelDate type="button" onClick={() => append({ value: null })}>
+            + Data e Horário
+          </LabelDate>
+        </DivDate>
         <ButtonStyles type="submit">Cadastrar Show</ButtonStyles>
       </form>
     </Conteiner>

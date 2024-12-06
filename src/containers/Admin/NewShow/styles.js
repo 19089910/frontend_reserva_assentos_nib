@@ -55,3 +55,60 @@ export const LabelUpload = styled.label`
     width: 1px;
   }
 `
+export const LabelDate = styled.label`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px dashed #ffff;
+  border-radius: 5px;
+  padding: 10px;
+  gap: 10px;
+
+  input {
+    opacity: 0;
+    width: 1px;
+  }
+`
+export const DivDate = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`
+
+export const Box = styled.div`
+  flex: 1 0 200px;
+  max-width: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 9px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`
+
+export const ButtonX = styled.button`
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e63946;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`
