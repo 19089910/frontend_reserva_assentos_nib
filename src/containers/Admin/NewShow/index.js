@@ -25,7 +25,8 @@ import {
 } from './styles'
 
 function NewShow() {
-  const [fileName, setFileName] = useState(null)
+  const [posterFileName, setPosterFileName] = useState(null)
+  const [bannerFileName, setBannerFileName] = useState(null)
   const navigate = useNavigate()
 
   const schema = Yup.object().shape({
@@ -36,12 +37,22 @@ function NewShow() {
         Yup.date().required('Escolha uma data e horário para o show').nullable()
       )
       .min(1, 'Adicione pelo menos uma data e horário'),
-    file: Yup.mixed()
-      .test('required', 'Carregue um arquivo', (value) => value?.length > 0)
+    poster: Yup.mixed()
+      .required('Carregue o poster do show')
       .test(
         'fileSize',
         'Carregue arquivos de até 2MB',
-        (value) => value[0]?.size <= 2000000
+        (value) => value?.[0]?.size <= 2000000
+      )
+      .test('type', 'Carregue apenas arquivos JPEG ou PNG', (value) => {
+        return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
+      }),
+    banner: Yup.mixed()
+      .required('Carregue o banner do show')
+      .test(
+        'fileSize',
+        'Carregue arquivos de até 2MB',
+        (value) => value?.[0]?.size <= 2000000
       )
       .test('type', 'Carregue apenas arquivos JPEG ou PNG', (value) => {
         return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
@@ -51,10 +62,10 @@ function NewShow() {
   const {
     register,
     handleSubmit,
-    control,
-    formState: { errors }
+    control
+    // formState: { errors }
   } = useForm({
-    resolver: yupResolver(schema)
+    // resolver: yupResolver(schema)
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -63,23 +74,42 @@ function NewShow() {
   })
 
   const onSubmit = async (data) => {
-    const showDataFormData = new FormData()
-    showDataFormData.append('showName', data.showName)
-    showDataFormData.append('description', data.description)
-    data.dates.forEach((date, index) => {
-      showDataFormData.append(`dates[${index}]`, date.toISOString())
-    })
-    showDataFormData.append('file', data.file[0])
-    showDataFormData.append('file', data.file[0])
+    try {
+      const showDataFormData = new FormData()
+      showDataFormData.append('showName', data.showName)
+      showDataFormData.append('description', data.description)
+      // Organizar as dates como um JSON estruturado
+      const datesData = data.dates.map((date) => ({
+        showDateTime: new Date(date.showDateTime).toISOString(),
+        seats: [] // Mantendo o array vazio para seats
+      }))
+      // Convertendo o array de dates em JSON e adicionando ao FormData
+      showDataFormData.append('dates', JSON.stringify(datesData))
+      // Adicionando os arquivos de poster e banner
+      showDataFormData.append('poster', data.poster[0])
+      showDataFormData.append('banner', data.banner[0])
 
-    await toast.promise(api.post('shows', showDataFormData), {
-      pending: 'Cadastrando o show...',
-      success: 'Show cadastrado com sucesso!',
-      error: 'Erro ao cadastrar o show!'
-    })
-    setTimeout(() => {
-      navigate('/listar-shows')
-    }, 2000)
+      console.log('Form data content:')
+      for (const pair of showDataFormData.entries()) {
+        if (pair[1] instanceof File) {
+          console.log(`${pair[0]}: [File - ${pair[1].name}]`)
+        } else {
+          console.log(`${pair[0]}: ${pair[1]}`)
+        }
+      }
+
+      console.log('Dates data:', datesData)
+      await toast.promise(api.post('shows', showDataFormData), {
+        pending: 'Cadastrando o show...',
+        success: 'Show cadastrado com sucesso!',
+        error: 'Erro ao cadastrar o show!'
+      })
+      setTimeout(() => {
+        navigate('/listar-shows')
+      }, 2000)
+    } catch (err) {
+      toast.error('Falha no sistema! Tente novamente')
+    }
   }
 
   const handleRemove = (index) => {
@@ -94,16 +124,24 @@ function NewShow() {
         <div>
           <Label>Nome do Show</Label>
           <Input type="text" {...register('showName')} />
-          <ErrorMensage>{errors.showName?.message}</ErrorMensage>
+          <ErrorMensage>
+            {
+              // errors.showName?.message
+            }
+          </ErrorMensage>
         </div>
         <div>
           <Label>Descrição</Label>
           <Input type="text" {...register('description')} />
-          <ErrorMensage>{errors.description?.message}</ErrorMensage>
+          <ErrorMensage>
+            {
+              // errors.description?.message
+            }
+          </ErrorMensage>
         </div>
         <div>
           <LabelUpload>
-            {fileName || (
+            {posterFileName || (
               <>
                 <CloudUploadIcon />
                 Carregue o poster do show
@@ -112,15 +150,21 @@ function NewShow() {
             <input
               type="file"
               accept="image/png,image/jpeg"
-              {...register('file')}
-              onChange={(value) => setFileName(value.target.files[0]?.name)}
+              {...register('poster')}
+              onChange={(value) =>
+                setPosterFileName(value.target.files[0]?.name)
+              }
             />
           </LabelUpload>
-          <ErrorMensage>{errors.file?.message}</ErrorMensage>
+          <ErrorMensage>
+            {
+              // errors.poster?.message
+            }
+          </ErrorMensage>
         </div>
         <div>
           <LabelUpload>
-            {fileName || (
+            {bannerFileName || (
               <>
                 <CloudUploadIcon />
                 Carregue o banner do show
@@ -129,11 +173,17 @@ function NewShow() {
             <input
               type="file"
               accept="image/png,image/jpeg"
-              {...register('file')}
-              onChange={(value) => setFileName(value.target.files[0]?.name)}
+              {...register('banner')}
+              onChange={(value) =>
+                setBannerFileName(value.target.files[0]?.name)
+              }
             />
           </LabelUpload>
-          <ErrorMensage>{errors.file?.message}</ErrorMensage>
+          <ErrorMensage>
+            {
+              // errors.banner?.message
+            }
+          </ErrorMensage>
         </div>
         <DivDate>
           {fields.map((field, index) => (
@@ -148,7 +198,7 @@ function NewShow() {
                   </ButtonX>
                 </div>
                 <Controller
-                  name={`dates[${index}].value`}
+                  name={`dates[${index}].showDateTime`} // Alterado para 'showDateTime'
                   control={control}
                   render={({ field }) => (
                     <DateTimePicker
@@ -160,20 +210,28 @@ function NewShow() {
                         <Input
                           {...params}
                           fullWidth
-                          error={!!errors.dates?.[index]?.value}
+                          // error={!!errors.dates?.[index]?.showDateTime}
                         />
                       )}
                     />
                   )}
                 />
               </LocalizationProvider>
-              <ErrorMensage>{errors.dates?.[index]?.message}</ErrorMensage>
+              <ErrorMensage>
+                {
+                  // errors.dates?.[index]?.showDateTime?.message
+                }
+              </ErrorMensage>{' '}
             </Box>
           ))}
-          <LabelDate type="button" onClick={() => append({ value: null })}>
+          <LabelDate
+            type="button"
+            onClick={() => append({ showDateTime: null })}
+          >
             + Data e Horário
           </LabelDate>
         </DivDate>
+
         <ButtonStyles type="submit">Cadastrar Show</ButtonStyles>
       </form>
     </Conteiner>

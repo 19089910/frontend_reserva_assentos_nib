@@ -79,8 +79,8 @@ export const DivDate = styled.div`
 `
 
 export const Box = styled.div`
-  flex: 1 0 200px;
-  max-width: 200px;
+  flex: 1 0 240px;
+  max-width: 240px;
   background-color: #fff;
   border-radius: 8px;
   padding: 9px;
