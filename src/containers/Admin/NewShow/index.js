@@ -1,4 +1,4 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+// import { yupResolver } from '@hookform/resolvers/yup'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -30,8 +30,12 @@ function NewShow() {
   const navigate = useNavigate()
 
   const schema = Yup.object().shape({
-    showName: Yup.string().required('Digite o nome do show'),
-    description: Yup.string().required('Digite a descrição do show'),
+    showName: Yup.string()
+      .required('Digite o nome do show')
+      .max(100, 'O nome do show deve ter no máximo 100 caracteres'),
+    description: Yup.string()
+      .required('Digite a descrição do show')
+      .min(200, 'A descrição do show deve ter no mínimo 200 caracteres'),
     dates: Yup.array()
       .of(
         Yup.date().required('Escolha uma data e horário para o show').nullable()
@@ -58,6 +62,7 @@ function NewShow() {
         return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
       })
   })
+  console.log(schema)
 
   const {
     register,
@@ -83,22 +88,9 @@ function NewShow() {
         showDateTime: new Date(date.showDateTime).toISOString(),
         seats: [] // Mantendo o array vazio para seats
       }))
-      // Convertendo o array de dates em JSON e adicionando ao FormData
       showDataFormData.append('dates', JSON.stringify(datesData))
-      // Adicionando os arquivos de poster e banner
       showDataFormData.append('poster', data.poster[0])
       showDataFormData.append('banner', data.banner[0])
-
-      console.log('Form data content:')
-      for (const pair of showDataFormData.entries()) {
-        if (pair[1] instanceof File) {
-          console.log(`${pair[0]}: [File - ${pair[1].name}]`)
-        } else {
-          console.log(`${pair[0]}: ${pair[1]}`)
-        }
-      }
-
-      console.log('Dates data:', datesData)
       await toast.promise(api.post('shows', showDataFormData), {
         pending: 'Cadastrando o show...',
         success: 'Show cadastrado com sucesso!',
@@ -210,7 +202,7 @@ function NewShow() {
                         <Input
                           {...params}
                           fullWidth
-                          // error={!!errors.dates?.[index]?.showDateTime}
+                          // error={errors.dates?.[index]?.showDateTime}
                         />
                       )}
                     />

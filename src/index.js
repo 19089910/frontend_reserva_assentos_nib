@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { ToastContainer } from 'react-toastify'
 import styled from 'styled-components'
 
 import { Footer } from './components/Footer'
@@ -27,6 +28,7 @@ root.render(
         <Footer />
       </ResponsiveDiv>
     </UserProvider>
+    <ToastContainer autoClose={2000} theme="colored" />
     <GlobalStyles />
   </>
 )

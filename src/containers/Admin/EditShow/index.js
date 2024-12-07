@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { useParams, useNavigate } from 'react-router-dom'
-import ReactSelect from 'react-select'
+// import { yupResolver } from '@hookform/resolvers/yup'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import ptBR from 'date-fns/locale/pt-BR'
+import React, { useState } from 'react'
+import { useForm, Controller, useFieldArray } from 'react-hook-form'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
+import { ErrorMensage } from '../../../components/ErrorMensage'
 import api from '../../../services/api'
 import {
   Conteiner,
@@ -11,74 +18,78 @@ import {
   Input,
   ButtonStyles,
   LabelUpload,
-  ConteinerInput
+  LabelDate,
+  DivDate,
+  Box,
+  ButtonX
 } from './styles'
 
 function EditShow() {
-  const [categories, setCategories] = useState([])
-  const [fileName, setFileName] = useState('')
-  const [showData, setShowData] = useState(null) // Para armazenar os dados do show
-  const { id } = useParams() // Obtemos o ID do show a partir da URL
+  const [posterFileName, setPosterFileName] = useState(null)
+  const [bannerFileName, setBannerFileName] = useState(null)
   const navigate = useNavigate()
+  const location = useLocation()
+  const show = location.state?.show || {} // recebendo do ListShows
+
+  const schema = Yup.object().shape({
+    showName: Yup.string()
+      .required('Digite o nome do show')
+      .max(100, 'O nome do show deve ter no máximo 100 caracteres'),
+    description: Yup.string()
+      .required('Digite a descrição do show')
+      .min(200, 'A descrição do show deve ter no mínimo 200 caracteres'),
+    dates: Yup.array()
+      .of(
+        Yup.date().required('Escolha uma data e horário para o show').nullable()
+      )
+      .min(1, 'Adicione pelo menos uma data e horário')
+  })
+  console.log(schema)
 
   const {
     register,
     handleSubmit,
+    control
+    // formState: { errors }
+  } = useForm({
+    // resolver: yupResolver(schema)
+  })
+
+  const { fields, append, remove } = useFieldArray({
     control,
-    formState: { errors },
-    reset
-  } = useForm()
+    name: 'dates'
+  })
+  console.log(show.dates)
 
-  // Fetch dos dados do show pelo ID
-  useEffect(() => {
-    async function fetchShow() {
-      try {
-        const { data } = await api.get(`shows/${id}`)
-        setShowData(data)
-        reset({
-          showName: data.showName,
-          description: data.description,
-          category: data.category
-        })
-      } catch (err) {
-        toast.error('Erro ao carregar os dados do show!')
-        navigate('/listar-shows') // Redireciona para a lista em caso de erro
-      }
-    }
-
-    fetchShow()
-  }, [id, reset, navigate])
-
-  // Fetch das categorias
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const { data } = await api.get('categories')
-        setCategories(data.categories)
-      } catch (err) {
-        toast.error('Erro ao carregar categorias!')
-      }
-    }
-
-    fetchCategories()
-  }, [])
-
-  const onSubmit = async (formData) => {
-    const form = new FormData()
-    form.append('showName', formData.showName)
-    form.append('description', formData.description)
-    form.append('category_id', formData.category?.id || '')
-    form.append('file', formData.file?.[0])
-
+  const onSubmit = async (data) => {
     try {
-      await toast.promise(api.put(`shows/${id}`, form), {
-        pending: 'Atualizando show...',
-        success: 'Show atualizado com sucesso!',
-        error: 'Erro ao atualizar show!'
+      const showDataFormData = new FormData()
+      showDataFormData.append('showName', data.showName)
+      showDataFormData.append('description', data.description)
+      // Organizar as dates como um JSON estruturado
+      const datesData = data.dates.map((date) => ({
+        showDateTime: new Date(date.showDateTime).toISOString(),
+        seats: [] // Mantendo o array vazio para seats
+      }))
+      showDataFormData.append('dates', JSON.stringify(datesData))
+      showDataFormData.append('poster', data.poster[0])
+      showDataFormData.append('banner', data.banner[0])
+      await toast.promise(api.put(`shows/${show.id}`, showDataFormData), {
+        pending: 'Editando show...',
+        success: 'Show editado com sucesso!',
+        error: 'Falha ao editadar o Show!'
       })
-      navigate('/listar-shows')
+      setTimeout(() => {
+        navigate('/listar-shows')
+      }, 2000)
     } catch (err) {
-      toast.error('Erro ao atualizar show!')
+      toast.error('Falha no sistema! Tente novamente')
+    }
+  }
+
+  const handleRemove = (index) => {
+    if (window.confirm('Tem certeza que deseja remover esta data?')) {
+      remove(index)
     }
   }
 
@@ -89,56 +100,122 @@ function EditShow() {
           <Label>Nome do Show</Label>
           <Input
             type="text"
-            {...register('showName', { required: 'O nome é obrigatório!' })}
+            {...register('showName')}
+            defaultValue={show.showName}
           />
-          {errors.showName && <p>{errors.showName.message}</p>}
+          <ErrorMensage>
+            {
+              // errors.showName?.message
+            }
+          </ErrorMensage>
         </div>
-
         <div>
           <Label>Descrição</Label>
           <Input
             type="text"
-            {...register('description', {
-              required: 'A descrição é obrigatória!'
-            })}
+            {...register('description')}
+            defaultValue={show.description}
           />
-          {errors.description && <p>{errors.description.message}</p>}
+          <ErrorMensage>
+            {
+              // errors.description?.message
+            }
+          </ErrorMensage>
         </div>
-
         <div>
           <LabelUpload>
-            {fileName || (
+            {posterFileName || (
               <>
-                <span>Carregar Imagem do Show</span>
+                <CloudUploadIcon />
+                Carregue o poster do show
               </>
             )}
             <input
               type="file"
               accept="image/png,image/jpeg"
-              {...register('file')}
-              onChange={(e) => setFileName(e.target.files[0]?.name)}
+              {...register('poster')}
+              onChange={(value) =>
+                setPosterFileName(value.target.files[0]?.name)
+              }
             />
           </LabelUpload>
+          <ErrorMensage>
+            {
+              // errors.poster?.message
+            }
+          </ErrorMensage>
         </div>
-
         <div>
-          <Label>Categoria</Label>
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => (
-              <ReactSelect
-                {...field}
-                options={categories}
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option.id}
-                placeholder="Selecione uma categoria"
-              />
+          <LabelUpload>
+            {bannerFileName || (
+              <>
+                <CloudUploadIcon />
+                Carregue o banner do show
+              </>
             )}
-          />
+            <input
+              type="file"
+              accept="image/png,image/jpeg"
+              {...register('banner')}
+              onChange={(value) =>
+                setBannerFileName(value.target.files[0]?.name)
+              }
+            />
+          </LabelUpload>
+          <ErrorMensage>
+            {
+              // errors.banner?.message
+            }
+          </ErrorMensage>
         </div>
+        <DivDate>
+          {fields.map((field, index) => (
+            <Box key={field.id}>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={ptBR}
+              >
+                <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                  <ButtonX type="button" onClick={() => handleRemove(index)}>
+                    x
+                  </ButtonX>
+                </div>
+                <Controller
+                  name={`dates[${index}].showDateTime`} // Alterado para 'showDateTime'
+                  control={control}
+                  render={({ field }) => (
+                    <DateTimePicker
+                      {...field}
+                      label={`Data e horário ${index + 1}`}
+                      disablePast
+                      inputFormat="dd/MM/yyyy HH:mm"
+                      renderInput={(params) => (
+                        <Input
+                          {...params}
+                          fullWidth
+                          // error={errors.dates?.[index]?.showDateTime}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+              <ErrorMensage>
+                {
+                  // errors.dates?.[index]?.showDateTime?.message
+                }
+              </ErrorMensage>
+            </Box>
+          ))}
+          <LabelDate
+            type="button"
+            onClick={() => append({ showDateTime: null })}
+          >
+            + Data e Horário
+          </LabelDate>
+        </DivDate>
 
-        <ButtonStyles type="submit">Salvar Alterações</ButtonStyles>
+        <ButtonStyles type="submit">Cadastrar Show</ButtonStyles>
       </form>
     </Conteiner>
   )
