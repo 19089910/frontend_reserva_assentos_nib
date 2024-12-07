@@ -1,5 +1,3 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
