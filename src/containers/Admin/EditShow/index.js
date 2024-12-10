@@ -1,6 +1,6 @@
 /**
- * FALTA RECUPERAR AS INFORMAÇÕES DE DATA E HORA PARA VISUALIZAÇÃO
  * FALTA FAZER O SCHEMA NAO QUERBRAR COM O DateTimePicker
+ * Mantendo o array vazio para seats
  */
 // import { yupResolver } from '@hookform/resolvers/yup'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
@@ -8,7 +8,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import ptBR from 'date-fns/locale/pt-BR'
-import React, { useState } from 'react'
+import dayjs from 'dayjs'
+import React, { useState, useEffect } from 'react'
 import { useForm, Controller, useFieldArray } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -33,7 +34,7 @@ function EditShow() {
   const [bannerFileName, setBannerFileName] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
-  const show = location.state?.show || {} // recebendo do ListShows
+  const show = location.state?.show || {}
 
   const schema = Yup.object().shape({
     showName: Yup.string()
@@ -53,17 +54,31 @@ function EditShow() {
   const {
     register,
     handleSubmit,
-    control
+    control,
+    setValue // Para definir valores no formulário
     // formState: { errors }
   } = useForm({
     // resolver: yupResolver(schema)
+    dates: [] // Inicialmente vazio
   })
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'dates'
   })
-  console.log(show.dates)
+  console.log(show._id)
+
+  // Preencher automaticamente as datas existentes
+  useEffect(() => {
+    if (show.dates && show.dates.length > 0) {
+      setValue(
+        'dates',
+        show.dates.map((date) => ({
+          showDateTime: dayjs(date.showDateTime) // Converter para `dayjs`
+        }))
+      )
+    }
+  }, [show.dates, setValue])
 
   const onSubmit = async (data) => {
     try {
@@ -78,7 +93,7 @@ function EditShow() {
       showDataFormData.append('dates', JSON.stringify(datesData))
       showDataFormData.append('poster', data.poster[0])
       showDataFormData.append('banner', data.banner[0])
-      await toast.promise(api.put(`shows/${show.id}`, showDataFormData), {
+      await toast.promise(api.put(`shows/${show._id}`, showDataFormData), {
         pending: 'Editando show...',
         success: 'Show editado com sucesso!',
         error: 'Falha ao editadar o Show!'
@@ -190,6 +205,7 @@ function EditShow() {
                   render={({ field }) => (
                     <DateTimePicker
                       {...field}
+                      value={field.value || null} // Garante que `value` seja compatívels
                       label={`Data e horário ${index + 1}`}
                       disablePast
                       inputFormat="dd/MM/yyyy HH:mm"
@@ -213,7 +229,7 @@ function EditShow() {
           ))}
           <LabelDate
             type="button"
-            onClick={() => append({ showDateTime: null })}
+            onClick={() => append({ showDateTime: dayjs() })}
           >
             + Data e Horário
           </LabelDate>

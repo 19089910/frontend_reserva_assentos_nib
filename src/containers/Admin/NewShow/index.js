@@ -1,5 +1,6 @@
 /**
  * FALTA FAZER O SCHEMA NAO QUERBRAR COM O DateTimePicker
+ * Mantendo o array vazio para seats
  */
 // import { yupResolver } from '@hookform/resolvers/yup'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'

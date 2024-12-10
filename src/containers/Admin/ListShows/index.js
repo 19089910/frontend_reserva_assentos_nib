@@ -16,7 +16,6 @@ function ListShows() {
   const [shows, setShows] = useState([])
   const navigate = useNavigate()
 
-  // Fetch shows
   useEffect(() => {
     async function loadShows() {
       try {
