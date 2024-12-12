@@ -4,7 +4,8 @@ import api from '../../services/api'
 import {
   groupByDate,
   formatDate,
-  formatWeekDay
+  formatWeekDay,
+  formatTime
 } from '../../util/formatDateGrup'
 import {
   ListWrapper,
@@ -161,13 +162,7 @@ export function SessionsShow() {
                       to={`/reserva?time=${new Date(time).toISOString()}`}
                     >
                       <Relative>
-                        <RelativeSpan>
-                          {new Date(time).toLocaleTimeString('pt-BR', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            timeZone: 'America/Manaus' // Define o fuso horário correto
-                          })}
-                        </RelativeSpan>
+                        <RelativeSpan>{formatTime(time)}</RelativeSpan>
                       </Relative>
                     </LinkSessions>
                   ))}

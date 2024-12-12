@@ -7,24 +7,41 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
 
+import {
+  groupByDate,
+  formatDate,
+  formatWeekDay,
+  formatTime
+} from '../../../util/formatDateGrup'
 import api from './../../../services/api'
-import statusOpition from './order-status'
 import Row from './row'
 import { Conteiner, Menu, LinkMenu } from './styles'
-// REVIEWING THE OPERATIONS THAT THE ADMIN IS GOING TO PERFORM.
-// get(orders)put(orders/id), post(product), put(producst/id)
-function Orders() {
-  const [orders, setOrders] = useState([]) // all pedidos
-  const [filteredOrders, setFilteredOrders] = useState([]) //  filtered orders for the Menu
-  const [activeStatus, setActiveStatus] = useState(0) // stores the id of who is active in the menu
-  const [rows, setRows] = useState([])
 
-  // get(orders):
+function Orders() {
+  const [orders, setOrders] = useState([]) // Todos os pedidos
+  const [filteredOrders, setFilteredOrders] = useState([]) // Pedidos filtrados pelo menu
+  const [activeTime, setActiveTime] = useState(null) // Tempo ativo no menu
+  const [rows, setRows] = useState([])
+  const [dates, setDates] = useState([]) // Datas disponíveis para shows
+  const [time, setTime] = useState({}) // Horários agrupados por data
+
+  // Carregar shows e agrupar por data e hora
+  useEffect(() => {
+    async function loadShows() {
+      const { data } = await api.get('/shows')
+      const groupedShows = groupByDate(data[0].dates) // Considerando apenas o primeiro show para este exemplo
+      setTime(groupedShows)
+      setDates(Object.keys(groupedShows))
+    }
+    loadShows()
+  }, [])
+
+  // Carregar pedidos
   useEffect(() => {
     async function loadOrders() {
-      const { data } = await api.get('orders')
-      setOrders(data.orders) // format object to array
-      setFilteredOrders(data.orders) // orders copy, id est all copy
+      const { data } = await api.get('/seats')
+      setOrders(data) // Lista completa de pedidos
+      setFilteredOrders(data) // Cópia inicial para filtro
     }
     loadOrders()
   }, [])
@@ -32,77 +49,72 @@ function Orders() {
   // table model
   function createData(order) {
     return {
-      name: order.user.name,
-      orderId: order._id,
-      date: order.createdAt,
-      status: order.status,
-      product: order.products
+      seatNumbers: order.seatNumber.join(', '), // Converte os assentos para uma string separada por vírgulas
+      orderId: order._id
     }
   }
-  // teble controller
-  useEffect(() => {
-    const newRows = filteredOrders.map((ord) => createData(ord)) // I changed from: "all requests" to: "send the row the requests that the menu wants"
-    setRows(newRows)
-  }, [filteredOrders]) // if you change the filter, check again the result of all this: row shows what the menu wants
 
-  // Menu filter
-  const allstatusOpition = [
-    { id: 0, label: 'Todos', value: 'all' },
-    ...statusOpition
-  ]
-  // Function to apply the filter
-  function filterOrdersByStatus(statusId) {
-    if (statusId === 0) {
+  // Atualizar as linhas da tabela ao filtrar pedidos
+  useEffect(() => {
+    const newRows = filteredOrders.map((ord) => createData(ord))
+    setRows(newRows)
+  }, [filteredOrders])
+
+  // Filtrar pedidos por horário selecionado
+  function filterOrdersByTime(selectedTime) {
+    if (!selectedTime) {
       return orders
     }
-    return orders.filter(
-      (order) => order.status === statusOpition[statusId - 1].value
-    )
+    return orders.filter((order) => order.showDateTime === selectedTime)
   }
-  // Function called when selecting a status from the menu
-  function handleStatus(statusOpition) {
-    const newFilteredOrders = filterOrdersByStatus(statusOpition.id)
+
+  // Manipular seleção de horário
+  function handleTimeSelection(selectedTime) {
+    const newFilteredOrders = filterOrdersByTime(selectedTime)
     setFilteredOrders(newFilteredOrders)
-    setActiveStatus(statusOpition.id)
+    setActiveTime(selectedTime)
   }
-  // Automatic update when "orders" change
+
+  // Atualizar automaticamente os pedidos filtrados quando a lista de pedidos mudar
   useEffect(() => {
-    const newFilteredOrders = filterOrdersByStatus(activeStatus)
+    const newFilteredOrders = filterOrdersByTime(activeTime)
     setFilteredOrders(newFilteredOrders)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders])
-
   return (
     <Conteiner>
       <Menu>
-        {allstatusOpition.map((statusOpition) => (
-          <LinkMenu
-            key={statusOpition.id}
-            onClick={() => handleStatus(statusOpition)}
-            isActiveStatus={activeStatus === statusOpition.id}
-          >
-            {statusOpition.label}
-          </LinkMenu>
-        ))}
+        {dates.map((date) =>
+          time[date]?.map((timeOption) => (
+            <LinkMenu
+              key={`${date}-${timeOption}`}
+              onClick={() => handleTimeSelection(timeOption)}
+              isActiveStatus={activeTime === timeOption}
+            >
+              {formatWeekDay(date)}
+              <br />
+              {formatDate(date)} - {formatTime(timeOption)}
+            </LinkMenu>
+          ))
+        )}
       </Menu>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
               <TableCell>Pedido</TableCell>
               <TableCell>Cliente</TableCell>
               <TableCell>Data do pedido</TableCell>
-              <TableCell>status</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <Row
                 key={row.orderId}
-                row={row}
-                setOrders={setOrders}
-                orders={orders}
+                rows={row}
+                // setOrders={setOrders}
+                // orders={orders}
               />
             ))}
           </TableBody>

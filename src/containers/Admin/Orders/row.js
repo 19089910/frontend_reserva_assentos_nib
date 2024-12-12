@@ -12,98 +12,53 @@ import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 
-import api from '../../../services/api'
-import status from './order-status'
-import { ProductsImg, ReactSelectStyle } from './styles'
+function OrdersTable({ rows }) {
+  const [openRow, setOpenRow] = useState(null)
 
-function Row({ row, orders, setOrders }) {
-  const [open, setOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [selectedStatus, setSelectedStatus] = useState(
-    status.find((option) => option.value === row.status) || null
-  )
-
-  async function setNewStatus(id, newStatus) {
-    setIsLoading(true)
-    try {
-      await api.put(`orders/${id}`, { status: newStatus })
-      // Updates the status locally to reflect the change
-      setSelectedStatus(status.find((option) => option.value === newStatus))
-      // update newStatus locally in setOrders in front end
-      const newOrders = orders.map((order) => {
-        //  will compare and look for the id of the status that was changed among the order statuses
-        return order._id === id ? { ...order, status: newStatus } : order
-      })
-      setOrders(newOrders)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setIsLoading(false)
-    }
+  const handleClick = (orderId) => {
+    setOpenRow(openRow === orderId ? null : orderId)
   }
 
   return (
-    <React.Fragment>
+    <React.Fragment key={rows.orderId}>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            onClick={() => handleClick(rows.orderId)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {openRow === rows.orderId ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.orderId}
+          {rows.orderId}
         </TableCell>
-        <TableCell>{row.name}</TableCell>
-        <TableCell>{row.date}</TableCell>
-
-        <TableCell>
-          <ReactSelectStyle
-            options={status}
-            placeholder="status"
-            menuPortalTarget={document.body}
-            value={selectedStatus} // subsisted defaultInputValue
-            isSearchable={false}
-            isLoading={isLoading}
-            onChange={(newStatus) => setNewStatus(row.orderId, newStatus.value)} // mudança para o back
-          />
-        </TableCell>
+        <TableCell>{rows.seatNumbers}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={openRow === rows.orderId} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Pedido
+                Detalhes do Pedido
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Quantidade</TableCell>
-                    <TableCell>Produto</TableCell>
-                    <TableCell>Categoria</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>ID do Pedido</TableCell>
+                    <TableCell>Assentos</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.product.map((productRow) => (
-                    <TableRow key={productRow.id}>
-                      <TableCell component="th" scope="row">
-                        {productRow.quantity}
-                      </TableCell>
-                      <TableCell>{productRow.name}</TableCell>
-                      <TableCell>{productRow.category}</TableCell>
-                      <TableCell>
-                        <ProductsImg
-                          src={productRow.url}
-                          alt="imagem-do-produto"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  <TableRow>
+                    <TableCell>{rows.orderId}</TableCell>
+                    <TableCell>{rows.seatNumbers}</TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>
@@ -114,24 +69,14 @@ function Row({ row, orders, setOrders }) {
   )
 }
 
-export default Row
-
-Row.propTypes = {
-  orders: PropTypes.array,
-  setOrders: PropTypes.func,
-  row: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    orderId: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-
-    product: PropTypes.arrayOf(
-      PropTypes.shape({
-        quantity: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        category: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired
-      })
-    ).isRequired
-  }).isRequired
+OrdersTable.propTypes = {
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      orderId: PropTypes.string.isRequired,
+      seatNumbers: PropTypes.string.isRequired,
+      showDateTime: PropTypes.string.isRequired
+    })
+  ).isRequired
 }
+
+export default OrdersTable

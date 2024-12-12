@@ -21,3 +21,12 @@ export const groupByDate = (shows) => {
   })
   return grouped
 }
+
+export const formatTime = (time) => {
+  const date = new Date(time)
+  return date.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Manaus' // Define o fuso horário correto
+  })
+}
