@@ -5,7 +5,6 @@ import React from 'react'
 import { Conteiner, Circle, Path } from './styles'
 
 export function SvgCircle({ onClick, isSelected, occupiedSeat }) {
-  console.log(occupiedSeat)
   return (
     <div style={{ fontSize: '0px' }}>
       <Conteiner

@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import paths from '../constants/paths'
-import { Checkout, GoogleSign, Shows, Admin } from '../containers'
+import { Checkout, GoogleSign, Shows, Admin, Reservation } from '../containers'
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
         <Route path="/" element={<Shows />} />
         <Route path="/reserva" element={<Checkout />} />
         <Route path="/signin" element={<GoogleSign />} />
+        <Route path="/checkin" element={<Reservation />} />
 
         <Route path={paths.Order} index element={<Admin />} />
         <Route path={paths.Shows} index element={<Admin />} />

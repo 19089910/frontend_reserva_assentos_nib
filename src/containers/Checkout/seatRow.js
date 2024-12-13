@@ -5,6 +5,17 @@ import { SvgCircle } from './../../components/SvgCircle'
 import { ReactTransformComponent, RowLabel, Circle, Span, Text } from './styles'
 
 function SeatRow({ seats, onSeatClick, selectedSeat, occupiedSeat }) {
+  const maxSeats = 8 // Define o limite máximo de assentos selecionados
+
+  const handleSeatClick = (seatNumber) => {
+    if (
+      selectedSeat.length < maxSeats && // Verifica se o limite ainda não foi atingido
+      !occupiedSeat.includes(seatNumber) // Verifica se o assento não está ocupado
+    ) {
+      onSeatClick(seatNumber)
+    }
+  }
+
   return (
     <ReactTransformComponent>
       {seats.map((seat, index) => (
@@ -15,10 +26,7 @@ function SeatRow({ seats, onSeatClick, selectedSeat, occupiedSeat }) {
             </RowLabel>
           )}
           <Circle
-            onClick={() =>
-              !occupiedSeat.includes(seat.seatNumber) &&
-              onSeatClick(seat.seatNumber)
-            }
+            onClick={() => handleSeatClick(seat.seatNumber)}
             className={
               selectedSeat.includes(seat.seatNumber) ? 'dnWEgS' : 'kjQfvk'
             }

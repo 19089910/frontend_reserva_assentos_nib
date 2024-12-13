@@ -1,3 +1,7 @@
+/**
+ * TA CHEIO DE REDUNDANCIAS PORQUE NO FUTURO VOU ADD STATUS DE CHECKIN
+ */
+
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -81,6 +85,19 @@ function Orders() {
     setFilteredOrders(newFilteredOrders)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders])
+
+  // Definir o primeiro horário disponível como inicial
+  useEffect(() => {
+    if (dates.length > 0 && !activeTime) {
+      const firstDate = dates[0] // Pega a primeira data disponível
+      const firstTime = time[firstDate]?.[0] // Pega o primeiro horário disponível para essa data
+      if (firstTime) {
+        handleTimeSelection(firstTime) // Seleciona automaticamente o primeiro horário
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dates, time])
+
   return (
     <Conteiner>
       <Menu>

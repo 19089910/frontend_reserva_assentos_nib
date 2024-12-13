@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import { Subtitle } from '../../components/Subtitle'
 import api from '../../services/api'
@@ -20,6 +22,8 @@ import {
 export function Checkout() {
   const [selectedSeat, setSelectedSeat] = useState([])
   const [occupiedSeat, setOccupiedSeat] = useState([])
+  const [refreshKey, setRefreshKey] = useState(0) // Estado para forçar atualização
+  const navigate = useNavigate()
   // Gera as linhas de assentos
   const rows = generateRows(5, 35)
 
@@ -50,29 +54,56 @@ export function Checkout() {
       setOccupiedSeat(allSeatNumbers) // Exibe uma lista de arrays de seatNumbers
     }
     reserveSeats()
-  }, [time])
+  }, [time, refreshKey])
 
   // Envia os assentos selecionados para a API
   const onSubmit = async () => {
-    if (selectedSeat.length === 0) {
-      alert('Por favor, selecione pelo menos um assento antes de enviar.')
-      return
+    // Configuração do esquema de validação Yup
+    const schema = Yup.object().shape({
+      seatNumber: Yup.array()
+        .of(Yup.string().required('Assento inválido.'))
+        .min(1, 'Por favor, selecione pelo menos um assento.')
+        .max(8, 'Você pode selecionar no máximo 8 assentos.'),
+      showDateTime: Yup.date().required(
+        'A data e hora do show são obrigatórias; retorne e escolha uma data'
+      )
+    })
+    // Dados a serem validados
+    const data = {
+      seatNumber: selectedSeat,
+      showDateTime: time
     }
     try {
-      const response = await api.post('/seats', {
-        seatNumber: selectedSeat,
-        showDateTime: time
-      })
-      alert('Assentos reservados com sucesso!')
+      // Valida os dados usando o schema
+      await schema.validate(data, { abortEarly: false })
+
+      // Envia a requisição para a API
+      const response = await api.post('/seats', data)
+      toast.success('Assentos reservados com sucesso!')
+      setRefreshKey((prevKey) => prevKey + 1)
       console.log('Resposta da API:', response.data)
+      setTimeout(() => {
+        navigate('/checkin')
+      }, 1000)
     } catch (error) {
-      console.error('Erro ao reservar assentos:', error)
-      alert('Ocorreu um erro ao reservar os assentos. Tente novamente.')
+      if (error instanceof Yup.ValidationError) {
+        // Constrói os erros para exibição na interface
+        const validationErrors = {}
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message
+        })
+
+        toast.error('Verifique os campos e corrija os erros.')
+      } else {
+        console.error('Erro ao reservar assentos:', error)
+        toast.error('Ocorreu um erro ao reservar os assentos. Tente novamente.')
+      }
+      setRefreshKey((prevKey) => prevKey + 1)
     }
   }
 
   return (
-    <Container>
+    <Container key={refreshKey}>
       <Header>
         <h1>Selecione seu Assento</h1>
       </Header>
@@ -132,6 +163,7 @@ export function Checkout() {
             <Button
               className="sc-dAlyuH csTJrN button-next-footer"
               onClick={onSubmit}
+              to={'/checkin'}
             >
               Escolher Ingressos
             </Button>
