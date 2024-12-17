@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { UserProvider } from './hooks/useFirebaseAuth'
+import { UserProvider } from './hooks/authProvider'
 import Routes from './routes/routes'
 import GlobalStyles from './styles/globalStyles'
 
