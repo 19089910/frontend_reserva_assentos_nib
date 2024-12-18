@@ -48,7 +48,6 @@ export function SessionsShow() {
     }
     loadShows()
   }, [])
-  console.log(show)
 
   // Função para selecionar a data
   const handleDateSelect = (date) => {

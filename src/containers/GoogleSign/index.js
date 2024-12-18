@@ -4,12 +4,11 @@ import { useUser } from '../../hooks/authProvider'
 import { Page, Signin, Card, ProviderButton, ProviderLogo } from './styles'
 
 export function GoogleSign() {
-  const { login, logout, user } = useUser()
+  const { login } = useUser()
 
   const handleSubmit = (e) => {
     e.preventDefault() // Impede o envio do formulário
     login() // Chama a função de login com Google
-    console.log(user)
   }
   return (
     <Page>

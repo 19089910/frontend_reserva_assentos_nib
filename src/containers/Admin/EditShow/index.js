@@ -49,7 +49,6 @@ function EditShow() {
       )
       .min(1, 'Adicione pelo menos uma data e horário')
   })
-  console.log(schema)
 
   const {
     register,
@@ -66,7 +65,6 @@ function EditShow() {
     control,
     name: 'dates'
   })
-  console.log(show._id)
 
   // Preencher automaticamente as datas existentes
   useEffect(() => {

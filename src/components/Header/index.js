@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import LogoMin from '../../assets/Marca_GC_100.png'
 import LogoLarg from '../../assets/maxresdefault.png'
+import { useUser } from '../../hooks/authProvider'
 import {
   HeaderContainer,
   Container,
@@ -12,15 +13,31 @@ import {
   LocationDiv,
   Wrapper,
   Content,
+  DropdownMenu,
   UserButton,
   UserConteiner,
   UserWrapper,
-  UserLabel
+  UserLabel,
+  LoginContainer,
+  InfoText,
+  Separator,
+  ListItem,
+  Icon
 } from './styles'
 
 export function Header() {
+  const { user, logout } = useUser()
   const [logoSrc, setLogoSrc] = useState(LogoLarg)
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+  const handleMouseEnter = () => {
+    setIsMenuOpen(true) // Abre o menu quando o mouse entra
+  }
+  const handleLogout = () => {
+    logout()
+  }
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 600) {
@@ -63,12 +80,15 @@ export function Header() {
             Manaus
           </Location>
 
-          <Content className="flex items-center justify-between gap-2 md:ml-auto md:gap-3 lg:gap-6">
+          <Content>
             {/* User Button */}
             <div style={{ alignItems: 'center', display: 'flex' }}>
-              <UserButton>
-                <UserConteiner className="flex items-center gap-3 text-left text-ing-blue-200">
-                  <UserWrapper className="size-6 cursor-pointer fill-ing-blue-200 md:size-9">
+              <UserButton
+                onClick={handleToggleMenu}
+                onMouseEnter={handleMouseEnter}
+              >
+                <UserConteiner>
+                  <UserWrapper>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 64 64"
@@ -85,11 +105,54 @@ export function Header() {
                     </svg>
                   </UserWrapper>
                   <UserLabel className="hidden w-24 whitespace-pre-wrap text-sm leading-none md:block">
-                    Entre ou Cadastre-se
+                    {user
+                      ? `Bem-vindo ${user.displayName}`
+                      : 'Entre ou Cadastre-se'}
                   </UserLabel>
                 </UserConteiner>
               </UserButton>
             </div>
+
+            {user ? (
+              <DropdownMenu isOpen={isMenuOpen}>
+                <LoginContainer>
+                  <InfoText>Olá, {user.displayName}!</InfoText>
+                  <Separator />
+                  <ListItem>
+                    <a href="/checkin">Meus Pedidos</a>
+                  </ListItem>
+                  <Separator />
+                  <ListItem onClick={handleLogout}>
+                    <p>Sair da Conta</p>
+                  </ListItem>
+                </LoginContainer>
+              </DropdownMenu>
+            ) : (
+              <DropdownMenu isOpen={isMenuOpen}>
+                <LoginContainer>
+                  <InfoText>Olá, faça seu login!</InfoText>
+                  <Separator />
+                  <ListItem>
+                    <a href="/signin">
+                      <Icon
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" x2="3" y1="12" y2="12"></line>
+                      </Icon>
+                      Login
+                    </a>
+                  </ListItem>
+                </LoginContainer>
+              </DropdownMenu>
+            )}
           </Content>
         </Wrapper>
       </Container>

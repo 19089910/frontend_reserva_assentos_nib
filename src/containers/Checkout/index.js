@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import { Subtitle } from '../../components/Subtitle'
+import { useUser } from '../../hooks/authProvider'
 import api from '../../services/api'
 import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
@@ -23,6 +24,7 @@ export function Checkout() {
   const [selectedSeat, setSelectedSeat] = useState([])
   const [occupiedSeat, setOccupiedSeat] = useState([])
   const [refreshKey, setRefreshKey] = useState(0) // Estado para forçar atualização
+  const { user } = useUser()
   const navigate = useNavigate()
   // Gera as linhas de assentos
   const rows = generateRows(5, 35)
@@ -69,9 +71,11 @@ export function Checkout() {
       )
     })
     // Dados a serem validados
+
     const data = {
       seatNumber: selectedSeat,
-      showDateTime: time
+      showDateTime: time,
+      user: { id: user.uid, name: user.displayName }
     }
     try {
       // Valida os dados usando o schema

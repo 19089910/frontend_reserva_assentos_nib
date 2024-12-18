@@ -138,6 +138,17 @@ export const Content = styled.div`
   align-items: center;
   display: flex;
 `
+export const DropdownMenu = styled.span`
+  display: ${(props) =>
+    props.isOpen ? 'block' : 'none'}; /* Controla a visibilidade */
+  position: absolute;
+  top: 100%;
+  color: #fff;
+  border-radius: 4px;
+  width: 200px;
+  z-index: 9999;
+`
+
 export const UserButton = styled.div`
   color: rgb(152 170 236);
 
@@ -199,4 +210,44 @@ export const UserLabel = styled.div`
   width: 6rem;
   display: none;
   margin: 0;
+`
+// Estilo para o Container de login
+export const LoginContainer = styled.div`
+  width: 10rem;
+`
+
+// Estilo para o parágrafo do texto
+export const InfoText = styled.p`
+  padding: 8px;
+  font-size: 0.875rem; // text-sm equivalente
+  color: #ccc; // Cor de texto padrão
+`
+
+// Estilo para o separador
+export const Separator = styled.div`
+  margin: 4px 0;
+  height: 1px;
+  background-color: #ccc; // cor de linha de separação
+`
+
+// Estilo para o item de lista com ícone
+export const ListItem = styled.li`
+  cursor: pointer;
+  list-style-type: none;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #0077cc; // cor de hover do item
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+`
+
+// Estilo para o ícone
+export const Icon = styled.svg`
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
 `
