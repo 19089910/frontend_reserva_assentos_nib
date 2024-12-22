@@ -16,7 +16,6 @@ function PrivateRoute() {
   const token = userData?.token
 
   if (!token || isTokenExpired(token)) {
-    localStorage.removeItem('codeburger:userData')
     return <Navigate to="/" />
   }
 

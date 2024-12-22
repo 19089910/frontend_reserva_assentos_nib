@@ -53,6 +53,8 @@ function Orders() {
   // table model
   function createData(order) {
     return {
+      userId: order.user.id,
+      userName: order.user.name,
       seatNumbers: order.seatNumber.join(', '), // Converte os assentos para uma string separada por vírgulas
       orderId: order._id
     }

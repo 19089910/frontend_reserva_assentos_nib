@@ -36,6 +36,9 @@ function OrdersTable({ rows }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
+          {rows.userName}
+        </TableCell>
+        <TableCell component="th" scope="row">
           {rows.orderId}
         </TableCell>
         <TableCell>{rows.seatNumbers}</TableCell>
