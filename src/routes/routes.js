@@ -13,11 +13,13 @@ function App() {
         <Route path="/reserva" element={<Checkout />} />
         <Route path="/signin" element={<GoogleSign />} />
         <Route path="/checkin" element={<Reservation />} />
-        <Route path={paths.Order} index element={<Admin />} />
-        <Route path={paths.Shows} index element={<Admin />} />
-        <Route path={paths.NewShow} index element={<Admin />} />
-        <Route path={paths.EditShow} index element={<Admin />} />
-        <Route element={<PrivateRoute />}></Route>
+        <Route element={<PrivateRoute />}>
+          <Route path={paths.Order} index element={<Admin />} />
+          <Route path={paths.Shows} index element={<Admin />} />
+          <Route path={paths.NewShow} index element={<Admin />} />
+          <Route path={paths.EditShow} index element={<Admin />} />
+          <Route element={<PrivateRoute />}></Route>
+        </Route>
       </Routes>
     </Router>
   )
