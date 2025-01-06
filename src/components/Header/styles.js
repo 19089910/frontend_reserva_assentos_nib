@@ -115,13 +115,24 @@ export const Location = styled.div`
   margin-right: auto;
 `
 export const LocationDiv = styled.div`
-  @media (min-width: 768px) {
-    width: 30px;
-    height: 30px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 8px;
   fill: #dde3f8;
-  width: 22px;
-  height: 22px;
+  cursor: pointer;
+  @media (min-width: 768px) {
+    width: 100%;
+    height: auto;
+    font-size: 1rem;
+  }
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+  span {
+    font-size: 1rem;
+    color: #fff;
+  }
 `
 export const Content = styled.div`
   @media (min-width: 992px) {
@@ -137,6 +148,27 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   display: flex;
+`
+export const MapContainer = styled.div`
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 650px;
+  height: 300px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
 `
 export const DropdownMenu = styled.span`
   display: ${(props) =>

@@ -1,4 +1,5 @@
-import React from 'react'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 import BannerImg from '../../assets/banner.png'
 import PosterImgS from '../../assets/poster.png'
@@ -28,7 +29,12 @@ import {
   StyledSvg
 } from './styles'
 
-export function BannerShows() {
+export function BannerShows({ onNavigate }) {
+  const [isShareOpen, setIsShareOpen] = useState(false)
+
+  const toggleSharePopup = () => {
+    setIsShareOpen(!isShareOpen)
+  }
   return (
     <SectionContainer>
       <Container>
@@ -72,13 +78,17 @@ export function BannerShows() {
                     mágica com brinquedos que ganham vida, transportando você
                     para o infinito e além!
                   </DescriptionText>
-                  <ReadMoreButton href="#details">
+                  <ReadMoreButton
+                    onClick={(e) => {
+                      e.preventDefault()
+                      onNavigate('details')
+                    }}
+                  >
                     Continuar lendo
                   </ReadMoreButton>
                 </DescriptionContainer>
                 {/* Botão de Compartilhar */}
-                <ShareButton className="share-btn">
-                  {' '}
+                <ShareButton onClick={toggleSharePopup}>
                   <IconContainer>
                     <StyledSvg
                       xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +104,33 @@ export function BannerShows() {
                   </IconContainer>
                   Compartilhar
                 </ShareButton>
+                {isShareOpen && (
+                  <div
+                    className="share-popup"
+                    style={{
+                      position: 'absolute',
+                      bottom: '10px',
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
+                  >
+                    <div className="popup-content">
+                      <ul className="flex flex-col">
+                        <li className="cursor-pointer">Copiar link</li>
+                        <li>
+                          <a
+                            href="https://www.facebook.com/sharer/sharer.php?u=https://aventuradosbrinquedos.vercel.app"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            Compartilhar no Facebook
+                          </a>
+                        </li>
+                        {/* Adicione mais opções de compartilhamento, como Twitter, WhatsApp, etc. */}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </Session>
             </Details>
           </Main>
@@ -102,4 +139,8 @@ export function BannerShows() {
       </Container>
     </SectionContainer>
   )
+}
+
+BannerShows.propTypes = {
+  onNavigate: PropTypes.func.isRequired
 }

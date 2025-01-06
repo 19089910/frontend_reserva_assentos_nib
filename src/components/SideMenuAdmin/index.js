@@ -3,12 +3,16 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 // import { useUser } from '../../hooks/UserContext'
+import { useUser } from '../../hooks/authProvider'
 import listLinks from './menu-list'
 import { Conteiner, ItemConteiner, ListLink } from './styles'
-
 export function SideMenuAdmin() {
+  const { logout } = useUser()
   const { pathname } = useLocation()
-  // const { logout } = useUser()
+  const handleLogout = (e) => {
+    e.preventDefault() // Previna o comportamento padrão do link
+    logout() // Chame a função logout
+  }
   return (
     <Conteiner>
       <hr />
@@ -21,7 +25,9 @@ export function SideMenuAdmin() {
       <hr />
       <ItemConteiner style={{ position: 'fixed', bottom: '30px' }}>
         <LogoutIcon style={{ color: '#ffff' }} />
-        <ListLink to="/login">Sair</ListLink>
+        <ListLink onClick={handleLogout} to="/signin">
+          Sair
+        </ListLink>
       </ItemConteiner>
     </Conteiner>
   )

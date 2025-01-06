@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import { Button } from '../Button'
@@ -11,7 +12,7 @@ import {
   GridLine
 } from './styles'
 
-export function DetailsShow() {
+export function DetailsShow({ onNavigate }) {
   return (
     <Container>
       <SectionSinopse>
@@ -23,7 +24,14 @@ export function DetailsShow() {
           superestrutura de iluminação e som de cinema, esta experiência única
           acontecerá no Auditório da Nova Igreja Batista - Grande Circular.
         </Description>
-        <Button href="#sessions">Ver sessões</Button>
+        <Button
+          onClick={(e) => {
+            e.preventDefault() // Evita navegação real
+            onNavigate('sessions') // Atualiza o estado na página principal
+          }}
+        >
+          Ver sessões
+        </Button>
       </SectionSinopse>
       {/* trilers */}
       <section></section>
@@ -62,4 +70,8 @@ export function DetailsShow() {
       </SectionSheet>
     </Container>
   )
+}
+
+DetailsShow.propTypes = {
+  onNavigate: PropTypes.func.isRequired
 }

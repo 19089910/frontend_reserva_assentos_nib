@@ -267,6 +267,7 @@ export const DescriptionText = styled.span`
 `
 
 export const ReadMoreButton = styled.a`
+  cursor: pointer;
   font-size: 1rem;
   line-height: 1.5rem;
   font-family: var(--uol-text);

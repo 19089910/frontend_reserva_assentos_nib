@@ -1,24 +1,32 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 import { useUser } from '../../hooks/authProvider'
 import { Page, Signin, Card, ProviderButton, ProviderLogo } from './styles'
 
 export function GoogleSign() {
   const { login } = useUser()
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault() // Impede o envio do formulário
-    login() // Chama a função de login com Google
+    try {
+      await login()
+      // toast.success('Login successful! Redirecting...')
+      setTimeout(() => {
+        navigate('/')
+      }, 3000)
+    } catch (error) {
+      toast.error('Login failed. Please try again.')
+    }
   }
+
   return (
     <Page>
       <Signin>
         <Card>
-          <form
-            action="https://localhost:3000/"
-            method="POST"
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             <input
               type="hidden"
               name="csrfToken"
@@ -42,6 +50,7 @@ export function GoogleSign() {
           </form>
         </Card>
       </Signin>
+      <ToastContainer />
     </Page>
   )
 }

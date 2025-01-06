@@ -14,24 +14,31 @@ import {
 export function Shows() {
   const [activeOption, setActiveOption] = useState('sessions')
 
+  const handleNavigation = (option) => {
+    setActiveOption(option)
+  }
   return (
     <>
-      <BannerShows />
+      <BannerShows onNavigate={handleNavigation} />
       <SectionContainer>
         <ContentContainer>
           <Option>
             <SessionOption
-              href="#sessions"
               isActive={activeOption === 'sessions'}
-              onClick={() => setActiveOption('sessions')}
+              onClick={(e) => {
+                e.preventDefault()
+                handleNavigation('sessions')
+              }}
             >
               <span style={{ scrollMargin: '5rem' }}>Sessões</span>
             </SessionOption>
 
             <SessionOption
-              href="#details"
               isActive={activeOption === 'details'}
-              onClick={() => setActiveOption('details')}
+              onClick={(e) => {
+                e.preventDefault()
+                handleNavigation('details')
+              }}
             >
               <span>Sobre o show</span>
             </SessionOption>
@@ -41,7 +48,9 @@ export function Shows() {
           {activeOption === 'sessions' && <SessionsShow />}
 
           {/* Renderizar a seção "Sobre o Show" apenas se activeOption for 'details' */}
-          {activeOption === 'details' && <DetailsShow />}
+          {activeOption === 'details' && (
+            <DetailsShow onNavigate={handleNavigation} />
+          )}
         </ContentContainer>
         <SpaceConteiner />
       </SectionContainer>
