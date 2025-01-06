@@ -1,3 +1,6 @@
+/** FALTA:
+ *  fazer essa funação fincionar
+ */
 // Function to check if the token is expired
 const isTokenExpired = (token) => {
   if (!token) return true

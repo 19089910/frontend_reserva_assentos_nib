@@ -1,4 +1,6 @@
-/** ainda vou enchugar esse styles */
+/** FALTA:
+ *  ainda vou enchugar esse styles
+ */
 import styled from 'styled-components'
 
 export const SectionContainer = styled.section`

@@ -13,7 +13,6 @@ export function GoogleSign() {
     e.preventDefault() // Impede o envio do formulário
     try {
       await login()
-      // toast.success('Login successful! Redirecting...')
       setTimeout(() => {
         navigate('/')
       }, 3000)

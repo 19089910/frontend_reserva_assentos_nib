@@ -1,3 +1,6 @@
+/** FALTA:
+ * adicionar status de que o usuario ja esta em seu acento com checkin do adm lendo o qrcode
+ */
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'

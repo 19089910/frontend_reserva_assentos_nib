@@ -1,5 +1,5 @@
-/**
- * FALTA FAZER O SCHEMA NAO QUERBRAR COM O DateTimePicker
+/** FALTA:
+ * fazer O SCHEMA NAO QUERBRAR COM O DateTimePicker
  * Mantendo o array vazio para seats
  */
 // import { yupResolver } from '@hookform/resolvers/yup'

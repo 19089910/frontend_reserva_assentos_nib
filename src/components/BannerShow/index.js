@@ -1,3 +1,9 @@
+/** FALTA:
+ * styles do menu de { Botão de Compartilhar }
+ * { Adicione mais opções de compartilhamento, como Twitter, WhatsApp, etc. }
+ * constats: de links href="https://www.facebook.com/sharer/sharer.php?u=https://aventuradosbrinquedos.vercel.app" etc..
+ */
+
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 

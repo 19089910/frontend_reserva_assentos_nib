@@ -1,3 +1,8 @@
+/** FALTA:
+ * bug de responsividade o menu bar do usuario some em celular
+ * fazer o react trabalhar melhor com o header dos menu bar de usuario e do map
+ */
+
 import React, { useEffect, useState } from 'react'
 
 import LogoMin from '../../assets/Marca_GC_100.png'

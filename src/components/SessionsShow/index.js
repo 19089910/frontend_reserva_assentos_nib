@@ -1,3 +1,6 @@
+/** FALTA:
+ * fazer um hooks para o show com opição centralizada de escolher qual show vai mostrar na tela
+ */
 import React, { useEffect, useState } from 'react'
 
 import api from '../../services/api'

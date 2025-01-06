@@ -1,3 +1,7 @@
+/** FALTA:
+ * components/Header menu bar do usurio e trasparente na tela de adm
+ */
+
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
