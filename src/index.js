@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { UserProvider } from './hooks/authProvider'
+import AppProvider from './hooks'
 import Routes from './routes/routes'
 import GlobalStyles from './styles/globalStyles'
 
@@ -21,13 +21,13 @@ const ResponsiveDiv = styled.div`
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <>
-    <UserProvider>
+    <AppProvider>
       <ResponsiveDiv>
         <Header />
         <Routes />
         <Footer />
       </ResponsiveDiv>
-    </UserProvider>
+    </AppProvider>
     <ToastContainer autoClose={2000} theme="colored" />
     <GlobalStyles />
   </>

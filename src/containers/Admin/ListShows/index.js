@@ -22,7 +22,7 @@ function ListShows() {
   useEffect(() => {
     async function loadShows() {
       try {
-        const { data } = await api.get('shows')
+        const { data } = await api.get('/shows')
         setShows(data)
       } catch (error) {
         console.error('Erro ao carregar os shows:', error)

@@ -11,6 +11,13 @@ export const formatDate = (dateString) => {
   const month = date.getUTCMonth() + 1 // getUTCMonth retorna de 0 a 11
   return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}`
 }
+export const formatDateYear = (dateString) => {
+  const date = new Date(dateString) // Cria o objeto Date
+  const day = date.getUTCDate() // Usa getUTCDate para evitar deslocamento de horário
+  const month = date.getUTCMonth() + 1 // getUTCMonth retorna de 0 a 11
+  const year = date.getUTCFullYear() // Obtém o ano
+  return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}` // Retorna a data no formato dd/mm/yyyy
+}
 
 export const groupByDate = (shows) => {
   const grouped = {}

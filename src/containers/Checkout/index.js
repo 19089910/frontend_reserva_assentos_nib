@@ -80,7 +80,7 @@ export function Checkout() {
     try {
       // Valida os dados usando o schema
       await schema.validate(data, { abortEarly: false })
-
+      localStorage.setItem('ingresso:seatSelection', JSON.stringify(data))
       // Envia a requisição para a API
       const response = await api.post('/seats', data)
       toast.success('Assentos reservados com sucesso!')
