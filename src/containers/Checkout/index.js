@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 
 import { Subtitle } from '../../components/Subtitle'
 import { useUser } from '../../hooks/authProvider'
+import { useSeats } from '../../hooks/SeatContext'
 import api from '../../services/api'
 import { generateRows } from '../../util/GenerateRows'
 import SeatRow from './seatRow'
@@ -24,6 +25,7 @@ export function Checkout() {
   const [selectedSeat, setSelectedSeat] = useState([])
   const [occupiedSeat, setOccupiedSeat] = useState([])
   const [refreshKey, setRefreshKey] = useState(0) // Estado para forçar atualização
+  const { updateLocalStorage } = useSeats()
   const { user } = useUser()
   const navigate = useNavigate()
   // Gera as linhas de assentos
@@ -112,11 +114,8 @@ export function Checkout() {
         <h1>Selecione seu Assento</h1>
       </Header>
       <MatrizContainer>
-        <div className="transform-component-module_wrapper__7HFJe">
-          <div
-            style={{ transform: 'translate(0px, 0px) scale(1)' }}
-            className="transform-component-module_content__uCDPE"
-          >
+        <div>
+          <div style={{ transform: 'translate(0px, 0px) scale(1)' }}>
             <Stage>
               <Detail />
               Palco
@@ -137,16 +136,11 @@ export function Checkout() {
       </MatrizContainer>
       <FooderContainer>
         <FooderWrapper>
-          <div className="sc-epqpcT jxwyXi">
+          <div>
             <div>
               <span data-testid="button-resume" className="sc-bvgPty gRGfQR">
-                <span
-                  height="24"
-                  width="24"
-                  className="sc-kpDqfm daulnc icon-resume"
-                  data-testid="icon-element"
-                >
-                  <div data-testid="svg-element" role="img">
+                <span height="24" width="24" data-testid="icon-element">
+                  <div>
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -163,14 +157,8 @@ export function Checkout() {
               </span>
             </div>
           </div>
-          <ButtonContainer className="sc-kUdmhA cLBwKV">
-            <Button
-              className="sc-dAlyuH csTJrN button-next-footer"
-              onClick={onSubmit}
-              to={'/checkin'}
-            >
-              Escolher Ingressos
-            </Button>
+          <ButtonContainer>
+            <Button onClick={onSubmit}>Escolher Ingressos</Button>
           </ButtonContainer>
         </FooderWrapper>
       </FooderContainer>

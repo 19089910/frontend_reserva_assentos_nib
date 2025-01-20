@@ -5,7 +5,7 @@ import { Header } from '../components/Header'
 import { auth } from '../config/firebase'
 import paths from '../constants/paths'
 import { useUser } from '../hooks/authProvider'
-import isTokenExpired from './tokenExpired'
+// import isTokenExpired from './tokenExpired'
 
 function PrivateRoute() {
   const { user } = useUser()

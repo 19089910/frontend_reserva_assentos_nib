@@ -1,7 +1,3 @@
-import {
-  ConstructionOutlined,
-  IndeterminateCheckBox
-} from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 
 import PosterImgS from '../../assets/poster.png'
@@ -13,16 +9,17 @@ import {
   Header,
   Content,
   ImgContainer,
-  DetailsList,
+  SesionDetails,
   ListItem,
   InfoRow,
   InfoRowDiv,
   Tags,
   MapLink,
   Section,
-  Separator,
+  InfoRowlocation,
   InfoRowContainer,
   Listitems,
+  FlexColum,
   IconContent,
   Description,
   Title,
@@ -123,27 +120,41 @@ export function Reservation() {
           </div>
         </Section>
 
-        <DetailsList>
-          <Separator />
-          <InfoRow>
-            <span>
-              Nib Grande Circular | Av. Autaz Mirim, 7761 - Tancredo Neves
-              Manaus
-            </span>
-            <MapLink
-              href="https://www.google.com/maps/search/?api=1&query=Nova%20Igreja%20Batista%20Grande%20Circular"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ver mapa do local
-            </MapLink>
-            <Separator />
-          </InfoRow>
-          <div className="styled__Row-dHeEfQ knmKhb">
-            <ul className="styled__List-kEyGcE jJIwnz">
-              <div className="flex flex-col">
-                <li className="styled__ListItem-etSAis jVWUvf">
-                  <div className="styled__IconContent-lchjFQ eYshIK">
+        <SesionDetails>
+          <InfoRowlocation>
+            <div>
+              <span>
+                Nib Grande Circular | Av. Autaz Mirim, 7761 - Tancredo Neves
+                Manaus
+              </span>
+              <MapLink
+                href="https://www.google.com/maps/search/?api=1&query=Nova%20Igreja%20Batista%20Grande%20Circular"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ver mapa do local
+                <svg
+                  style={{ paddingLeft: '3px' }}
+                  width="16"
+                  height="16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M8.278 13.183c.231-.234.413-.382.749-.746.67-.725.276-.255 1.63-1.698 1.354-1.443 1.709-2.375 1.709-3.653 0-2.51-1.856-4.836-4.354-4.836s-4.39 2.326-4.39 4.836c0 1.236.557 2.251 1.727 3.618 1.17 1.368.897.991 1.613 1.733.329.341.419.425.65.654.048.048.347.286.387.325.045-.044.225-.178.28-.233ZM2.582 6.872c0-3.06 2.37-5.539 5.506-5.539s5.327 2.48 5.327 5.539c0 1.575-.674 3.208-1.955 4.456-.295.321-.96 1.08-1.68 1.813-.384.392-.722.732-.973.979-.137.135-.247.241-.328.316a2.877 2.877 0 0 1-.113.1c-.143.118-.182.126-.34.13-.25.006-.236-.01-1.667-1.452-.766-.77-1.438-1.474-1.684-1.768-1.277-1.409-2.093-3.05-2.093-4.574ZM7.988 9.75c-1.393 0-2.656-1.276-2.656-2.744 0-1.467 1.263-2.59 2.656-2.59 1.394 0 2.677 1.123 2.677 2.59 0 1.468-1.283 2.744-2.677 2.744Zm.01-1c.902 0 1.667-.77 1.667-1.72 0-.949-.765-1.614-1.667-1.614s-1.666.643-1.666 1.592c0 .95.763 1.742 1.666 1.742Z"
+                    fill="#666"
+                  ></path>
+                </svg>
+              </MapLink>
+            </div>
+          </InfoRowlocation>
+          <InfoRowContainer>
+            <Listitems>
+              <FlexColum>
+                <li>
+                  <IconContent>
                     <svg
                       width="20"
                       height="20"
@@ -157,20 +168,18 @@ export function Reservation() {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </div>
-                  <div className="styled__Description-eLzXrd knThGi">
-                    <small className="styled__Title-bOOAne dcQDuz">
-                      Assentos Escolhidos:
-                    </small>
-                    <div className="styled__TextInfo-gHekGY lbtuhI">
-                      <span>H 9, </span>
-                      <span>H 8, </span>
-                      <span>H 7</span>
-                    </div>
-                  </div>
+                  </IconContent>
+                  <Description>
+                    <Title>Assentos Escolhidos:</Title>
+                    <TextInfo>
+                      {seatsInfo.seatNumber.map((sents, index) => (
+                        <span key={index}>{sents}</span>
+                      ))}
+                    </TextInfo>
+                  </Description>
                 </li>
-                <li className="styled__ListItem-etSAis jVWUvf">
-                  <div className="styled__IconContent-lchjFQ eYshIK">
+                <li>
+                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
                     <svg
                       width="20"
                       height="20"
@@ -184,8 +193,8 @@ export function Reservation() {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </div>
-                  <div className="styled__Description-eLzXrd knThGi">
+                  </IconContent>
+                  <IconContent className="styled__Description-eLzXrd knThGi">
                     <small className="styled__Title-bOOAne dcQDuz">
                       Tipos de Ingresso:
                     </small>
@@ -195,10 +204,10 @@ export function Reservation() {
                     <div className="styled__TextInfo-gHekGY lbtuhI">
                       (2) Meia
                     </div>
-                  </div>
+                  </IconContent>
                 </li>
-                <li className="styled__ListItem-etSAis jVWUvf">
-                  <div className="styled__IconContent-lchjFQ eYshIK">
+                <li>
+                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
                     <svg
                       width="20"
                       height="20"
@@ -212,20 +221,20 @@ export function Reservation() {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </div>
-                  <div className="styled__Description-eLzXrd knThGi">
+                  </IconContent>
+                  <IconContent className="styled__Description-eLzXrd knThGi">
                     <small className="styled__Title-bOOAne dcQDuz">
                       Total da sessão:
                     </small>
                     <div className="styled__TextInfo-gHekGY lbtuhI">
                       R$&nbsp;59,28
                     </div>
-                  </div>
+                  </IconContent>
                 </li>
-              </div>
-              <div className="flex flex-col">
-                <li className="styled__ListItem-etSAis jVWUvf">
-                  <div className="styled__IconContent-lchjFQ eYshIK">
+              </FlexColum>
+              <FlexColum>
+                <li>
+                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
                     <svg
                       width="20"
                       height="20"
@@ -239,8 +248,8 @@ export function Reservation() {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </div>
-                  <div className="styled__Description-eLzXrd knThGi">
+                  </IconContent>
+                  <IconContent className="styled__Description-eLzXrd knThGi">
                     <small className="styled__Title-bOOAne dcQDuz">
                       Dados do cliente:
                     </small>
@@ -253,10 +262,10 @@ export function Reservation() {
                     <div className="styled__TextInfoProfile-frmcgb khRRDT">
                       Telefone: Não informado
                     </div>
-                  </div>
+                  </IconContent>
                 </li>
-                <li className="styled__ListItem-etSAis jVWUvf">
-                  <div className="styled__IconContent-lchjFQ eYshIK">
+                <li>
+                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
                     <svg
                       width="20"
                       height="20"
@@ -270,8 +279,8 @@ export function Reservation() {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </div>
-                  <div className="styled__Description-eLzXrd knThGi">
+                  </IconContent>
+                  <IconContent className="styled__Description-eLzXrd knThGi">
                     <small className="styled__Title-bOOAne dcQDuz">
                       29/07/2024 20:08
                     </small>
@@ -281,12 +290,12 @@ export function Reservation() {
                     <div className="styled__TextInfoProfile-frmcgb khRRDT">
                       66a820b18566081cbd6bedc4
                     </div>
-                  </div>
+                  </IconContent>
                 </li>
-              </div>
-            </ul>
-          </div>
-        </DetailsList>
+              </FlexColum>
+            </Listitems>
+          </InfoRowContainer>
+        </SesionDetails>
       </Content>
     </Container>
   )

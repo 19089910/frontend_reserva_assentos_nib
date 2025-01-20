@@ -127,11 +127,25 @@ export const Tags = styled.ul`
   }
 `
 
-export const DetailsList = styled.section`
-  list-style: none;
-  padding: 0;
+export const SesionDetails = styled.section`
+  padding: 0px 0.5rem;
 `
-
+export const InfoRowlocation = styled.div`
+  border-width: 0.5px 0px;
+  border-style: solid;
+  border-color: rgb(52, 60, 70);
+  border-image: initial;
+  padding: 1rem 0px;
+  color: rgb(240, 240, 240);
+  div {
+    padding: 0px 10px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+  }
+`
 export const MapLink = styled.a`
   color: #007bff;
   text-decoration: none;
@@ -141,52 +155,62 @@ export const MapLink = styled.a`
     text-decoration: underline;
   }
 `
-export const Separator = styled.div`
-  margin: 4px 0;
-  height: 1px;
-  background-color: #ccc; // cor de linha de separação
-`
-// Container principal para a linha de informações
 export const InfoRowContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
+  flex-wrap: wrap;
+  padding-left: 8px;
 `
 
-// Estilo para cada item da lista
-export const Listitems = styled.li`
+export const Listitems = styled.ul`
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 72px;
+  }
+  position: relative;
+  padding: 10px 0px;
+  flex: 0 0 100%;
+  border-color: rgb(52, 60, 70);
+  border-bottom-width: 0.5px;
+  border-bottom-style: solid;
+`
+
+export const FlexColum = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ccc;
+  flex-direction: column;
+  li {
+    display: flex;
+    margin-bottom: 1rem;
+  }
 `
 
-// Contêiner para o ícone
 export const IconContent = styled.div`
-  margin-right: 1rem;
+  margin-right: 0.5rem;
+  padding-top: 2px;
   svg {
-    fill: #fff;
+    width: 20px;
+    height: 20px;
+    fill: rgb(255, 255, 255);
   }
 `
 
 // Estilo para o texto da descrição
 export const Description = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: block;
+  -webkit-box-align: center;
+  align-items: center;
 `
 
 // Estilo para o título da descrição
 export const Title = styled.small`
   font-size: 0.875rem;
-  color: #888;
+  font-weight: 700;
 `
 
 // Estilo para as informações textuais
 export const TextInfo = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 1rem;
-  color: #333;
+  padding: 5px 10px 0px 0px;
+  font-size: 0.875rem;
+  color: rgb(173, 182, 194);
   span {
     margin-right: 0.5rem;
   }

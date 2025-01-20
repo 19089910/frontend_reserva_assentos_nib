@@ -8,18 +8,13 @@ export const SeatProvider = ({ children }) => {
 
   // Função para atualizar o localStorage
   const updateLocalStorage = async (seats) => {
-    await localStorage.setItem('ingresso:seatSelection', JSON.stringify(seats))
-  }
-
-  // Função para adicionar ou remover assentos selecionados
-  const editSeatSelection = async (seatNumber) => {
-    setSeatsInfo((prevSelectedSeats) => {
-      const newSeats = prevSelectedSeats.includes(seatNumber)
-        ? prevSelectedSeats.filter((seat) => seat !== seatNumber)
-        : [...prevSelectedSeats, seatNumber]
-      updateLocalStorage(newSeats)
-      return newSeats
-    })
+    const storedSeats = await localStorage.setItem(
+      'ingresso:seatSelection',
+      JSON.stringify(seats)
+    )
+    if (storedSeats) {
+      setSeatsInfo(JSON.parse(storedSeats))
+    }
   }
 
   // Função para carregar os assentos selecionados do localStorage ao iniciar
@@ -34,7 +29,7 @@ export const SeatProvider = ({ children }) => {
   }, [])
 
   return (
-    <SeatContext.Provider value={{ seatsInfo, editSeatSelection }}>
+    <SeatContext.Provider value={{ seatsInfo, updateLocalStorage }}>
       {children}
     </SeatContext.Provider>
   )
