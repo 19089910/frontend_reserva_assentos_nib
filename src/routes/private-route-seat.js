@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
+import { useSeats } from '../hooks/SeatContext'
+
 function PrivateRouteSeat() {
+  const { seatsInfo } = useSeats()
   const location = useLocation()
-  const [isSeatsInfo, setIsSeatsInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const paths = { Shows: '/', Checkout: '/reserva' }
   const isRestrictedPath = Object.values(paths).includes(location.pathname)
 
   useEffect(() => {
-    const loadUserData = async () => {
-      const storedSeats = localStorage.getItem('ingresso:seatSelection')
-      if (storedSeats) {
-        // Apenas verifica se o dado existe
-        setIsSeatsInfo(true)
-      } else {
-        setIsSeatsInfo(false)
-      }
-    }
-    loadUserData()
+    // Simula o carregamento inicial
+    const timer = setTimeout(() => setLoading(false), 300)
+    return () => clearTimeout(timer)
   }, [])
-  console.log(localStorage.getItem('ingresso:seatSelection'))
-  console.log(isSeatsInfo)
 
-  if (!isSeatsInfo && !isRestrictedPath) {
+  if (loading) {
+    return <div>Carregando...</div>
+  }
+
+  const hasSeatsInfo = Object.keys(seatsInfo).length > 0
+  console.log(seatsInfo)
+
+  if (!hasSeatsInfo && !isRestrictedPath) {
     return <Navigate to="/" />
   }
 
-  if (isSeatsInfo && isRestrictedPath) {
+  if (hasSeatsInfo && isRestrictedPath) {
     return <Navigate to="/checkin" />
   }
 

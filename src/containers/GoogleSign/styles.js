@@ -5,7 +5,6 @@ export const Page = styled.div`
   place-items: center;
   width: 100%;
   height: 100%;
-  position: absolute;
   box-sizing: border-box;
 `
 

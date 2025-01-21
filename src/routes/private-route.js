@@ -38,7 +38,7 @@ function PrivateRoute() {
 
   // Exibe um estado de carregamento enquanto verifica as claims
   if (isAdmin === null) {
-    return <div>Carregando...</div>
+    return <div>Carregando... recarregue a tela ou tente novamente</div>
   }
 
   if (!token) {

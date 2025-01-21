@@ -6,15 +6,10 @@ const SeatContext = createContext({})
 export const SeatProvider = ({ children }) => {
   const [seatsInfo, setSeatsInfo] = useState({})
 
-  // Função para atualizar o localStorage
+  // Atualiza o localStorage e o estado
   const updateLocalStorage = async (seats) => {
-    const storedSeats = await localStorage.setItem(
-      'ingresso:seatSelection',
-      JSON.stringify(seats)
-    )
-    if (storedSeats) {
-      setSeatsInfo(JSON.parse(storedSeats))
-    }
+    localStorage.setItem('ingresso:seatSelection', JSON.stringify(seats))
+    setSeatsInfo(seats)
   }
 
   // Função para carregar os assentos selecionados do localStorage ao iniciar
