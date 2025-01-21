@@ -22,7 +22,6 @@ function PrivateRouteSeat() {
   }
 
   const hasSeatsInfo = Object.keys(seatsInfo).length > 0
-  console.log(seatsInfo)
 
   if (!hasSeatsInfo && !isRestrictedPath) {
     return <Navigate to="/" />

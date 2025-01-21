@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
 
 import LogoMin from '../../assets/Marca_GC_100.png'
 import LogoLarg from '../../assets/maxresdefault.png'
@@ -57,7 +56,6 @@ export function Header() {
 
   const handleLogout = () => {
     logout()
-    Navigate('/')
   }
   useEffect(() => {
     const handleResize = () => {

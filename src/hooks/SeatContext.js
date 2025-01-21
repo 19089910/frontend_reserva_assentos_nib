@@ -8,13 +8,13 @@ export const SeatProvider = ({ children }) => {
 
   // Atualiza o localStorage e o estado
   const updateLocalStorage = async (seats) => {
-    localStorage.setItem('ingresso:seatSelection', JSON.stringify(seats))
+    await localStorage.setItem('ingresso:seatSelection', JSON.stringify(seats))
     setSeatsInfo(seats)
   }
 
   // Função para remover os dados do usuário ao fazer logout
   const clearSeatsInfo = async () => {
-    localStorage.removeItem('ingresso:seatSelection')
+    await localStorage.removeItem('ingresso:seatSelection')
     setSeatsInfo({})
   }
 

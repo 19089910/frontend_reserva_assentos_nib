@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
       const userEmail = result.user.email
       const response = await api.get(`/seats?email=${userEmail}`)
       const userData = response.data[0] || null
-      console.log(userData)
+
       // Armazena as informações do assento no localStorage
       const seats = {
         seatNumber: userData.seatNumber,

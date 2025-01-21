@@ -62,6 +62,12 @@ export function Checkout() {
 
   // Envia os assentos selecionados para a API
   const onSubmit = async () => {
+    // Verifica se o usuário está logado
+    if (!user) {
+      toast.error('Você precisa estar logado para fazer a reserva.')
+      return // Impede o envio dos dados se o usuário não estiver logado
+    }
+
     // Configuração do esquema de validação Yup
     const schema = Yup.object().shape({
       seatNumber: Yup.array()
