@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 
 import { auth, googleProvider } from '../config/firebase'
 import api from '../services/api'
+import { useSeats } from './SeatContext'
 
 const UserContext = createContext({})
 
@@ -16,6 +17,7 @@ const UserContext = createContext({})
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null) // Estado do usuário
   const [loading, setLoading] = useState(true) // Carregamento inicial
+  const { clearSeatsInfo, updateLocalStorage } = useSeats()
 
   // Função de login com Google
   const login = async () => {
@@ -36,10 +38,8 @@ export const UserProvider = ({ children }) => {
           email: userData.user.email
         }
       }
-      await localStorage.setItem(
-        'ingresso:seatSelection',
-        JSON.stringify(seats)
-      )
+      updateLocalStorage(seats) // adicionar o contexto de assentos
+
       toast.success('Login realizado com sucesso!')
     } catch (error) {
       console.error('Erro ao fazer login:', error.message)
@@ -51,7 +51,8 @@ export const UserProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth)
-      await localStorage.removeItem('ingresso:seatSelection')
+      await clearSeatsInfo() // Limpa o contexto de assentos
+
       toast.success('Logout realizado com sucesso!')
     } catch (error) {
       console.error('Erro ao fazer logout:', error.message)

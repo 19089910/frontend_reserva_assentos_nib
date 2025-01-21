@@ -12,6 +12,12 @@ export const SeatProvider = ({ children }) => {
     setSeatsInfo(seats)
   }
 
+  // Função para remover os dados do usuário ao fazer logout
+  const clearSeatsInfo = async () => {
+    localStorage.removeItem('ingresso:seatSelection')
+    setSeatsInfo({})
+  }
+
   // Função para carregar os assentos selecionados do localStorage ao iniciar
   useEffect(() => {
     const loadUserData = async () => {
@@ -24,7 +30,9 @@ export const SeatProvider = ({ children }) => {
   }, [])
 
   return (
-    <SeatContext.Provider value={{ seatsInfo, updateLocalStorage }}>
+    <SeatContext.Provider
+      value={{ seatsInfo, updateLocalStorage, clearSeatsInfo }}
+    >
       {children}
     </SeatContext.Provider>
   )
