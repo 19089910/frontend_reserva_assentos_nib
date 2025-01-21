@@ -48,18 +48,20 @@ function OrdersTable({ rows }) {
           <Collapse in={openRow === rows.orderId} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Detalhes do Pedido
+                Dados do cliente:
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>ID do Pedido</TableCell>
+                    <TableCell>ID do Usuario</TableCell>
+                    <TableCell>E-mail</TableCell>
                     <TableCell>Assentos</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell>{rows.orderId}</TableCell>
+                    <TableCell>{rows.userId}</TableCell>
+                    <TableCell>{rows.userEmail}</TableCell>
                     <TableCell>{rows.seatNumbers}</TableCell>
                   </TableRow>
                 </TableBody>

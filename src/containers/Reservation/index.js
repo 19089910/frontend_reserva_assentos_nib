@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import PosterImgS from '../../assets/poster.png'
 import { useSeats } from '../../hooks/SeatContext.js'
-import api from '../../services/api.js'
 import { formatDateYear, formatTime } from '../../util/formatDateGrup.js'
 import {
   Container,
@@ -27,21 +26,7 @@ import {
 } from './styles.js'
 
 export function Reservation() {
-  const [show, setshow] = useState([])
   const { seatsInfo } = useSeats()
-
-  useEffect(() => {
-    async function loadShows() {
-      try {
-        const { data } = await api.get('/shows')
-        setshow(data[0])
-      } catch (error) {
-        console.error('Erro ao carregar os shows:', error)
-      }
-    }
-
-    loadShows()
-  }, [])
 
   return (
     <Container>
@@ -54,7 +39,7 @@ export function Reservation() {
             </ImgContainer>
             <ListItem>
               <InfoRow>
-                <h1>{show?.showName || 'Show não definido'}</h1>
+                <h1>{seatsInfo.showName || 'Show não definido'}</h1>
               </InfoRow>
               <InfoRowDiv>
                 <div>
@@ -196,14 +181,10 @@ export function Reservation() {
                   </IconContent>
                   <IconContent className="styled__Description-eLzXrd knThGi">
                     <small className="styled__Title-bOOAne dcQDuz">
-                      Tipos de Ingresso:
+                      Duração:
                     </small>
-                    <div className="styled__TextInfo-gHekGY lbtuhI">
-                      (1) Inteira
-                    </div>
-                    <div className="styled__TextInfo-gHekGY lbtuhI">
-                      (2) Meia
-                    </div>
+                    <div className="styled__TextInfo-gHekGY lbtuhI">80 min</div>
+                    <div className="styled__TextInfo-gHekGY lbtuhI">1h20</div>
                   </IconContent>
                 </li>
                 <li>
@@ -222,19 +203,15 @@ export function Reservation() {
                       ></path>
                     </svg>
                   </IconContent>
-                  <IconContent className="styled__Description-eLzXrd knThGi">
-                    <small className="styled__Title-bOOAne dcQDuz">
-                      Total da sessão:
-                    </small>
-                    <div className="styled__TextInfo-gHekGY lbtuhI">
-                      R$&nbsp;59,28
-                    </div>
+                  <IconContent>
+                    <small>Total da sessão:</small>
+                    <div>R$&nbsp;Entrada gratuita</div>
                   </IconContent>
                 </li>
               </FlexColum>
               <FlexColum>
                 <li>
-                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
+                  <IconContent>
                     <svg
                       width="20"
                       height="20"
@@ -249,23 +226,15 @@ export function Reservation() {
                       ></path>
                     </svg>
                   </IconContent>
-                  <IconContent className="styled__Description-eLzXrd knThGi">
-                    <small className="styled__Title-bOOAne dcQDuz">
-                      Dados do cliente:
-                    </small>
-                    <div className="styled__TextInfoProfile-frmcgb khRRDT">
-                      Nome: Lucas Barbosa Ferreira
-                    </div>
-                    <div className="styled__TextInfoProfile-frmcgb khRRDT">
-                      Documento: 70406781281
-                    </div>
-                    <div className="styled__TextInfoProfile-frmcgb khRRDT">
-                      Telefone: Não informado
-                    </div>
+                  <IconContent>
+                    <small>Dados do cliente:</small>
+                    <div>Nome: {seatsInfo.user.name}</div>
+                    <div>Id do usuario: {seatsInfo.user.id}</div>
+                    <div>email:{seatsInfo.user.email}</div>
                   </IconContent>
                 </li>
                 <li>
-                  <IconContent className="styled__IconContent-lchjFQ eYshIK">
+                  <IconContent>
                     <svg
                       width="20"
                       height="20"
@@ -280,16 +249,13 @@ export function Reservation() {
                       ></path>
                     </svg>
                   </IconContent>
-                  <IconContent className="styled__Description-eLzXrd knThGi">
-                    <small className="styled__Title-bOOAne dcQDuz">
-                      29/07/2024 20:08
+                  <IconContent>
+                    <small>
+                      {formatDateYear(seatsInfo.showDateTime)}{' '}
+                      {formatTime(seatsInfo.showDateTime)}
                     </small>
-                    <div className="styled__TextInfo-gHekGY lbtuhI">
-                      Nº do pedido:{' '}
-                    </div>
-                    <div className="styled__TextInfoProfile-frmcgb khRRDT">
-                      66a820b18566081cbd6bedc4
-                    </div>
+                    <div>Nº do pedido: </div>
+                    <div>{seatsInfo._id}</div>
                   </IconContent>
                 </li>
               </FlexColum>

@@ -77,17 +77,18 @@ export function Checkout() {
     const data = {
       seatNumber: selectedSeat,
       showDateTime: time,
-      user: { id: user.uid, name: user.displayName }
+      user: { id: user.uid, email: user.email, name: user.displayName }
     }
     try {
       // Valida os dados usando o schema
       await schema.validate(data, { abortEarly: false })
-      localStorage.setItem('ingresso:seatSelection', JSON.stringify(data))
+
       // Envia a requisição para a API
       const response = await api.post('/seats', data)
       toast.success('Assentos reservados com sucesso!')
       setRefreshKey((prevKey) => prevKey + 1)
-      console.log('Resposta da API:', response.data)
+
+      updateLocalStorage(response.data)
       setTimeout(() => {
         navigate('/checkin')
       }, 1000)

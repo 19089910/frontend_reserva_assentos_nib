@@ -55,6 +55,7 @@ function Orders() {
     return {
       userId: order.user.id,
       userName: order.user.name,
+      userEmail: order.user.email,
       seatNumbers: order.seatNumber.join(', '), // Converte os assentos para uma string separada por vírgulas
       orderId: order._id
     }
@@ -123,7 +124,7 @@ function Orders() {
             <TableRow>
               <TableCell>Pedido</TableCell>
               <TableCell>Cliente</TableCell>
-              <TableCell>Data do pedido</TableCell>
+              <TableCell>ID do pedido</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>

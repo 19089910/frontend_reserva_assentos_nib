@@ -16,7 +16,7 @@ export const Header = styled.h1`
 `
 
 export const Content = styled.div`
-  height: 830px;
+  //height: 830px;
   overflow: auto;
   scrollbar-width: none;
   margin: 1rem 10px 0px;
